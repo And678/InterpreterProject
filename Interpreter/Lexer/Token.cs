@@ -24,7 +24,15 @@ namespace Interpreter.Lexer
 
 		public override string ToString()
 		{
-			return "<" + Type.ToString() + $", {Value}>";
+			StringBuilder newString = new StringBuilder();
+			newString.Append('<');
+			newString.Append(Type.ToString());
+			if (Value != String.Empty)
+			{
+				newString.Append($", {Value}");
+			}
+			newString.Append('>');
+			return newString.ToString();
 		}
 	}
 }

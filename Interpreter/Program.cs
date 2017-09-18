@@ -7,7 +7,7 @@ namespace Interpreter
 	{
 		public static void Main()
 		{
-			Lexer.Lexer lex = new Lexer.Lexer("\"abc\"1613166  goodlife1 654 int 654bool 000 intbool\'good\'54136  shotgun\"123\"==;");
+			Lexer.Lexer lex = new Lexer.Lexer("int abc = 5;\n    abc = abc + 5;\n    echo(abc);\n   string xyz = \"This is a string!\";  ");
 			Token tok = lex.GetNextToken();
 			while (tok.Type != TokenType.EOF)
 			{

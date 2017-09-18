@@ -51,7 +51,7 @@ namespace Interpreter.Lexer
 			{
 				return ParseNumber();
 			}
-			if (Char.IsSymbol(current))
+			if (Char.IsSymbol(current) || current == '(' || current == ')' || current == '{' || current == '}')
 			{
 				return ParseSymbols();
 			}
