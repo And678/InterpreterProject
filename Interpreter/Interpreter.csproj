@@ -35,10 +35,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context.cs" />
     <Compile Include="Lexer\Lexer.cs" />
     <Compile Include="Lexer\LexerDefinitions.cs" />
     <Compile Include="Lexer\Token.cs" />
     <Compile Include="Lexer\TokenType.cs" />
+    <Compile Include="Parser\IExpression.cs" />
+    <Compile Include="Parser\Statements\Assignment.cs" />
+    <Compile Include="Parser\Statements\Declaration.cs" />
+    <Compile Include="Parser\Statements\If.cs" />
+    <Compile Include="Parser\Statements\Invocation.cs" />
+    <Compile Include="Parser\IStatement.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\Statements\Scope.cs" />
+    <Compile Include="Parser\Statements\While.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup />

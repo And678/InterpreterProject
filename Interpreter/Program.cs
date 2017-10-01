@@ -7,7 +7,7 @@ namespace Interpreter
 	{
 		public static void Main()
 		{
-			Lexer.Lexer lex = new Lexer.Lexer("int abc = 5;\n    abc = abc + 5;\n    echo(abc);\n   string xyz = \"This is a string!\";  ");
+			Lexer.Lexer lex = new Lexer.Lexer("int abc = 5;\n    abc = abc + 5;\n    echo(abc);\n   string xyz = \"This is a string!\"; while(kek == 2) { echo(\"func\"); } ");
 			Token tok = lex.GetNextToken();
 			while (tok.Type != TokenType.EOF)
 			{

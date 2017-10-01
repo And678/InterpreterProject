@@ -32,6 +32,9 @@ namespace Interpreter.Lexer
 		Mod,
 		Assign,
 
+		While,
+		If,
+
 		And,
 		Or,
 		Not,

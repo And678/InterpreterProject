@@ -26,6 +26,10 @@ namespace Interpreter.Lexer
 		};
 		public static readonly string NullLiteral = "null";
 
+		public static readonly string While = "while";
+		public static readonly string If = "if";
+
+
 		//Operators: (MAXIMUM LENGTH FOR OPERATORS IS 2)
 		public static readonly Dictionary<TokenType, string> Operators = 
 			new Dictionary<TokenType, string>()

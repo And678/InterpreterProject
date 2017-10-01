@@ -17,20 +17,21 @@ namespace Interpreter.Lexer
 		{
 			_code = code;
 		}
+
+		private void ParseWhiteSpace()
+		{
+			while (_currentIndex < _code.Length && Char.IsWhiteSpace(_code[_currentIndex]))
+			{
+				_currentIndex++;
+			}
+		}
 		public Token GetNextToken()
 		{
-
+			ParseWhiteSpace();
 			if (_currentIndex >= _code.Length) {
 				return new Token(TokenType.EOF);
 			}
-
-
-			while (Char.IsWhiteSpace(_code[_currentIndex])) {
-				_currentIndex++;
-
-			}
 			Char current = _code[_currentIndex];
-
 			if (current == LexerDefinitions.Terminator[0]) {
 				_currentIndex++;
 				return new Token(TokenType.Terminator);
@@ -51,7 +52,7 @@ namespace Interpreter.Lexer
 			{
 				return ParseNumber();
 			}
-			if (Char.IsSymbol(current) || current == '(' || current == ')' || current == '{' || current == '}')
+			if (Char.IsSymbol(current) || current == '(' || current == ')' || current == '{' || current == '}')		//TODO: fix this
 			{
 				return ParseSymbols();
 			}
@@ -103,6 +104,16 @@ namespace Interpreter.Lexer
 			if (literalString == LexerDefinitions.NullLiteral)
 			{
 				return new Token(TokenType.NullLiteral);
+			}
+
+			if (literalString == LexerDefinitions.While)
+			{
+				return new Token(TokenType.While);
+			}
+
+			if (literalString == LexerDefinitions.If)
+			{
+				return new Token(TokenType.If);
 			}
 
 			foreach (var type in LexerDefinitions.TypeIdentifiers)
