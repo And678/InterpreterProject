@@ -16,33 +16,22 @@ namespace ConsoleInterpreter
 		{
 			if (args.Length == 0)
 			{
-				Console.WriteLine("#################################################################\n" +
-								"#                                                               #\n" +
-								"#                           MPZ Lab 1                           #\n" +
-								"#                          AndriyScript                         #\n" +
-								"#                                                               #\n" +
-								"#                                           Made by:            #\n" +
-								"#                                           Andriy Kaminskyy    #\n" +
-								"#                                           NULP IKNI PI-32     #\n" +
-								"#                                                               #\n" +
-								"#                           Lviv-2017                           #\n" +
-								"#################################################################\n");
+				Console.WriteLine("  █████╗ ███╗   ██╗██████╗ ██████╗ ██╗██╗   ██╗    ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗\r\n██╔══██╗████╗  ██║██╔══██╗██╔══██╗██║╚██╗ ██╔╝    ██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝\r\n███████║██╔██╗ ██║██║  ██║██████╔╝██║ ╚████╔╝     ███████╗██║     ██████╔╝██║██████╔╝   ██║   \r\n██╔══██║██║╚██╗██║██║  ██║██╔══██╗██║  ╚██╔╝      ╚════██║██║     ██╔══██╗██║██╔═══╝    ██║   \r\n██║  ██║██║ ╚████║██████╔╝██║  ██║██║   ██║       ███████║╚██████╗██║  ██║██║██║        ██║   \r\n╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝");
+				Console.WriteLine("╔╦╗┌─┐┌┬┐┌─┐  ┌┐ ┬ ┬  ┌─┐┌┐┌┌┬┐┬─┐┬┬ ┬  ╦╔═┌─┐┌┬┐┬┌┐┌┌─┐┬┌─┬ ┬┬ ┬\r\n║║║├─┤ ││├┤   ├┴┐└┬┘  ├─┤│││ ││├┬┘│└┬┘  ╠╩╗├─┤│││││││└─┐├┴┐└┬┘└┬┘\r\n╩ ╩┴ ┴─┴┘└─┘  └─┘ ┴   ┴ ┴┘└┘─┴┘┴└─┴ ┴   ╩ ╩┴ ┴┴ ┴┴┘└┘└─┘┴ ┴ ┴  ┴ \r\n┌┐┌┬ ┬┬  ┌─┐  ┌─┐┬  ─┐┌─┐                                              \r\n││││ ││  ├─┘  ├─┘│─ ─┤┌─┘                                          \r\n┘└┘└─┘┴─┘┴    ┴  ┴  ─┘└─┘   ");
+				Console.WriteLine("Usage: >ConsoleInterpreter.exe <filepath>");
 			}
 			else if (File.Exists(args[0]))
 			{
 				File.ReadAllText(args[0]);
 				Lexer lex = new Lexer(File.ReadAllText(args[0]));
 				Parser parser = new Parser(lex);
-				Context context = new Context();
+				Context context = new Context(new ConsoleInputManager());
 				try
 				{
 					IStatement cur = parser.BuildStatement();
 					while (cur != null)
 					{
 						cur.Execute(context);
-						string abc = context.GetOutput();
-						if (abc != string.Empty)
-							Console.WriteLine(abc);
 						cur = parser.BuildStatement();
 					}
 				}

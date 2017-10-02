@@ -1,5 +1,6 @@
+echo("Enter number of fibonacci number to find");
 int NumToFind;
-NumToFind = 9;
+NumToFind = StrToInt(gets());
 
 int current;
 current = 2;

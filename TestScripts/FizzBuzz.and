@@ -1,0 +1,16 @@
+echo("Replaces any number divisible by three with the word fizz,");
+echo("and any number divisible by five with the word buzz.");
+echo("Numbers divisible by both become fizz buzz.");
+echo("Type 0 to exit");
+int n;
+n = StrToInt(gets());
+while (n != 0)
+{
+	if (n % 3 == 0)
+		echo("Fizz");
+	if (n % 5 == 0) 
+		echo("Buzz");
+	if(n % 3 != 0 && n % 5 != 0)
+		echo(n);
+	n = StrToInt(gets());
+}

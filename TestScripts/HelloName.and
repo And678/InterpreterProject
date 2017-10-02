@@ -1,0 +1,4 @@
+echo("Enter your name: ");
+string abc;
+abc = gets();
+echo("Hello " + abc + "!");

@@ -169,24 +169,19 @@ namespace Interpreter.Lexer
 		private Token ParseSymbols()
 		{
 			string oneSymbol = _code[_currentIndex].ToString();
-			string twoSymbol;
-			try
-			{
+			string twoSymbol = string.Empty;
+			if (_currentIndex < _code.Length - 1)
 				twoSymbol = _code.Substring(_currentIndex, 2);
-			}
-			catch (ArgumentOutOfRangeException)
-			{
-				throw new SyntaxException("Missing ;");
-			}
 
-			foreach (var token in LexerDefinitions.Operators)
-			{
-				if (twoSymbol == token.Value)
+			if (twoSymbol != string.Empty)
+				foreach (var token in LexerDefinitions.Operators)
 				{
-					_currentIndex += 2;
-					return new Token(token.Key, token.Value);
+					if (twoSymbol == token.Value)
+					{
+						_currentIndex += 2;
+						return new Token(token.Key, token.Value);
+					}
 				}
-			}
 			foreach (var token in LexerDefinitions.Operators)
 			{
 				if (oneSymbol == token.Value)

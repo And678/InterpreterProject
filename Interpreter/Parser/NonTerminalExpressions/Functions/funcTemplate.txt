@@ -1,0 +1,25 @@
+public class Functio : IExpression
+	{
+		private const int ArgNumber = 1;
+		private IExpression _expression;
+		public Echo(IList<IExpression> expr)
+		{
+			if (expr.Count != ArgNumber)
+				throw new SyntaxException($"DELET accepts {ArgNumber} arguments.");
+			_expression = expr.First();
+		}
+		public Value Intrerpret(Context.Context context)
+		{
+			var result = _expression.Intrerpret(context);
+			if (result.Type == "int")
+			{
+			}
+			else if (result.Type == "string")
+			{
+			}
+			else
+			{
+				throw new SyntaxException($"DELET is not defined for {result.Type}");
+			}
+		}
+	}

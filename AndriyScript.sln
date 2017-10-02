@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interpreter", "Interpreter\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleInterpreter", "ConsoleInterpreter\ConsoleInterpreter.csproj", "{D0B71EA4-C197-4773-BA5D-9A519A39FF6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndriyScriptIDE", "AndriyScriptIDE\AndriyScriptIDE.csproj", "{615E9931-7E90-4880-A0A4-35B580751FFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interpreter.Tests", "Interpreter.Tests\Interpreter.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{D0B71EA4-C197-4773-BA5D-9A519A39FF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0B71EA4-C197-4773-BA5D-9A519A39FF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0B71EA4-C197-4773-BA5D-9A519A39FF6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615E9931-7E90-4880-A0A4-35B580751FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615E9931-7E90-4880-A0A4-35B580751FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615E9931-7E90-4880-A0A4-35B580751FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615E9931-7E90-4880-A0A4-35B580751FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

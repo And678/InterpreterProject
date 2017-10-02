@@ -11,12 +11,16 @@ namespace Interpreter.Context
 	{
 		private Dictionary<string, Value> _variables;
 
-		private StringBuilder _output;
+		private IInputManager _inputManager;
 
 		public Context()
 		{
-			_output = new StringBuilder();
 			_variables = new Dictionary<string, Value>();
+		}
+		public Context(IInputManager myInputManager)
+		{
+			_variables = new Dictionary<string, Value>();
+			_inputManager = myInputManager;
 		}
 
 		public Value LookUpVariable(string name)
@@ -40,22 +44,24 @@ namespace Interpreter.Context
 
 		public void AddToOutput(string output)
 		{
-			_output.Append(output);
+			_inputManager.PrintLine(output);
 		}
 		public void AddToOutput(int output)
 		{
-			_output.Append(output);
+			_inputManager.PrintLine(output.ToString());
 		}
 		public void AddToOutput(bool output)
 		{
-			_output.Append(output);
+			_inputManager.PrintLine(output.ToString());
 		}
 
-		public string GetOutput()
+		public string GetInput()
 		{
-			var result = _output.ToString();
-			_output.Clear();
-			return result;
+			if (_inputManager == null)
+			{
+				throw new ApplicationException("Input manager is not connected");
+			}
+			return _inputManager.GetLineFromUser();
 		}
 	}
 }

@@ -228,6 +228,13 @@ namespace Interpreter.Parser
 		}
 		private IExpression ParsePrimaryExpression()
 		{
+			if (_currentToken.Type == TokenType.LeftBracket)
+			{
+				Take(TokenType.LeftBracket);
+				var expr = ParseExpression();
+				Take(TokenType.RightBracket);
+				return expr;
+			}
 			if (_currentToken.Type == TokenType.Identifier)
 			{
 				if (_nextToken.Type == TokenType.LeftBracket)
@@ -310,6 +317,10 @@ namespace Interpreter.Parser
 					return new Echo(exprList);
 				case "inttostr":
 					return new IntToStr(exprList);
+				case "gets":
+					return new Gets(exprList);
+				case "strtoint":
+					return new StrToInt(exprList);
 				default:
 					throw new SyntaxException($"Function {identifier.Value} does not exist.");
 			}
