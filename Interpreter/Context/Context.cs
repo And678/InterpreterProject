@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interpreter.Parser;
 
 namespace Interpreter.Context
 {
@@ -10,8 +11,11 @@ namespace Interpreter.Context
 	{
 		private Dictionary<string, Value> _variables;
 
+		private StringBuilder _output;
+
 		public Context()
 		{
+			_output = new StringBuilder();
 			_variables = new Dictionary<string, Value>();
 		}
 
@@ -21,7 +25,7 @@ namespace Interpreter.Context
 			{
 				return _variables[name];
 			}
-			throw new ApplicationException("Variable does not exist");
+			throw new SyntaxException("Variable does not exist");
 		}
 
 		public void AddVariable(string type, string name)
@@ -31,7 +35,27 @@ namespace Interpreter.Context
 				_variables.Add(name, new Value(type));
 				return;
 			}
-			throw new ApplicationException("Variable already exists");
+			throw new SyntaxException("Variable already exists");
+		}
+
+		public void AddToOutput(string output)
+		{
+			_output.Append(output);
+		}
+		public void AddToOutput(int output)
+		{
+			_output.Append(output);
+		}
+		public void AddToOutput(bool output)
+		{
+			_output.Append(output);
+		}
+
+		public string GetOutput()
+		{
+			var result = _output.ToString();
+			_output.Clear();
+			return result;
 		}
 	}
 }

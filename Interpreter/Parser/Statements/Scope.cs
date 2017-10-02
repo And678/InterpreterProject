@@ -8,9 +8,18 @@ namespace Interpreter.Parser.Statements
 {
 	public class Scope : IStatement
 	{
+		private IList<IStatement> _statements;
+
+		public Scope(IList<IStatement> statements)
+		{
+			_statements = statements;
+		}
 		public void Execute(Context.Context context)
 		{
-			throw new NotImplementedException();
+			foreach (var stmt in _statements)
+			{
+				stmt.Execute(context);
+			}
 		}
 	}
 }

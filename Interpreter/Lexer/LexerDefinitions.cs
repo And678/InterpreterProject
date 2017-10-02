@@ -28,7 +28,7 @@ namespace Interpreter.Lexer
 		public static readonly string While = "while";
 		public static readonly string If = "if";
 
-
+		public static readonly string OperatorSymbols = "(){}+-*/%^&|[]<>,!=";
 		//Operators: (MAXIMUM LENGTH FOR OPERATORS IS 2)
 		public static readonly Dictionary<TokenType, string> Operators = 
 			new Dictionary<TokenType, string>()
@@ -46,6 +46,7 @@ namespace Interpreter.Lexer
 				{ TokenType.Assign, "="},
 				{ TokenType.GreaterThan, ">" },
 				{ TokenType.LessThan, "<" },
+				{ TokenType.Comma, ","},
 
 				{ TokenType.And, "&&"},
 				{ TokenType.Or, "||"},

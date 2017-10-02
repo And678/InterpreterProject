@@ -8,9 +8,29 @@ namespace Interpreter.Parser.Statements
 {
 	public class If : IStatement
 	{
+		private IExpression _expression;
+		private IStatement _statement;
+
+		public If(IExpression expression, IStatement statement)
+		{
+			_expression = expression;
+			_statement = statement;
+		}
 		public void Execute(Context.Context context)
 		{
-			throw new NotImplementedException();
+			var result = _expression.Intrerpret(context);
+			if (result.Type == "bool")
+			{
+				if (TypeHelper.Convert<bool>(result))
+				{
+					_statement.Execute(context);
+				}
+			}
+			else
+			{
+				throw new SyntaxException($"If expressions are required to be bool, not {result.Type}");
+			}
+
 		}
 	}
 }

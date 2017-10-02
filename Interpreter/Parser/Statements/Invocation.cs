@@ -8,9 +8,15 @@ namespace Interpreter.Parser.Statements
 {
 	public class Invocation : IStatement
 	{
+		private IExpression _functionExpression;
+
+		public Invocation(IExpression expr)
+		{
+			_functionExpression = expr;
+		}
 		public void Execute(Context.Context context)
 		{
-			throw new NotImplementedException();
+			_functionExpression.Intrerpret(context);
 		}
 	}
 }

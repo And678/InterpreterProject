@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interpreter.Parser;
 
 namespace Interpreter.Lexer
 {
@@ -48,15 +49,15 @@ namespace Interpreter.Lexer
 			{
 				return ParseIdentifier();
 			}
-			if (Char.IsDigit(current))
+			if (Char.IsDigit(current) || current == '-')
 			{
 				return ParseNumber();
 			}
-			if (Char.IsSymbol(current) || current == '(' || current == ')' || current == '{' || current == '}')		//TODO: fix this
+			if (LexerDefinitions.OperatorSymbols.Contains(current.ToString()))		//TODO: fix this
 			{
 				return ParseSymbols();
 			}
-			throw new FormatException("Wrong symbol");
+			throw new SyntaxException("Wrong symbol");
 		}
 
 
@@ -75,7 +76,7 @@ namespace Interpreter.Lexer
 			}
 			catch (IndexOutOfRangeException)
 			{
-				throw new FormatException("Unenclosed string/file literal");
+				throw new SyntaxException("Unenclosed string/file literal");
 			}
 			_currentIndex++;
 			return new Token(
@@ -97,7 +98,7 @@ namespace Interpreter.Lexer
 			}
 			catch (IndexOutOfRangeException)
 			{
-				throw new FormatException("Missing ;");
+				throw new SyntaxException("Missing ;");
 			}
 			string literalString = newLiteral.ToString().ToLower();
 
@@ -133,7 +134,6 @@ namespace Interpreter.Lexer
 					);
 				}
 			}
-
 			return new Token(
 				TokenType.Identifier,
 				literalString
@@ -145,6 +145,11 @@ namespace Interpreter.Lexer
 			StringBuilder newLiteral = new StringBuilder();
 			try
 			{
+				if (_code[_currentIndex] == '-')
+				{
+					newLiteral.Append('-');
+					_currentIndex++;
+				}
 				while (Char.IsDigit(_code[_currentIndex]))
 				{
 					newLiteral.Append(_code[_currentIndex]);
@@ -153,7 +158,7 @@ namespace Interpreter.Lexer
 			}
 			catch (IndexOutOfRangeException)
 			{
-				throw new FormatException("Missing ;");
+				throw new SyntaxException("Missing ;");
 			}
 			return new Token(
 				TokenType.IntegerLiteral,
@@ -171,7 +176,7 @@ namespace Interpreter.Lexer
 			}
 			catch (ArgumentOutOfRangeException)
 			{
-				throw new FormatException("Missing ;");
+				throw new SyntaxException("Missing ;");
 			}
 
 			foreach (var token in LexerDefinitions.Operators)
@@ -190,7 +195,7 @@ namespace Interpreter.Lexer
 					return new Token(token.Key, token.Value);
 				}
 			}
-			throw new FormatException("Unknown operator");
+			throw new SyntaxException("Unknown operator");
 
 		}
 	}

@@ -24,6 +24,8 @@ namespace Interpreter.Lexer
 		LeftSquareBracket,
 		RightSquareBracket,
 
+		Comma,
+
 		// Additive
 		Plus,
 		Minus, 

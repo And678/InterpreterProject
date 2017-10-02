@@ -1,0 +1,21 @@
+int NumToFind;
+NumToFind = 9;
+
+int current;
+current = 2;
+
+int a;
+a = 0;
+
+int b;
+b = 1;
+
+int temp;
+
+while(current < NumToFind) {
+	temp = a;
+	a = b;
+	b = b + temp;
+	current = current + 1;
+}
+echo(IntToStr(NumToFind) + "th Fibonacci number starting from 0 is: " + IntToStr(b));

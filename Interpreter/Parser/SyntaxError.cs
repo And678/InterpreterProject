@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Interpreter.Parser
 {
 	[Serializable]
-	internal class SyntaxException : Exception
+	public class SyntaxException : Exception
 	{
 		public SyntaxException()
 		{

@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Interpreter.Lexer;
 using Interpreter.Parser.NonTerminalExpressions.Additive;
+using Interpreter.Parser.NonTerminalExpressions.Equality;
+using Interpreter.Parser.NonTerminalExpressions.Functions;
+using Interpreter.Parser.NonTerminalExpressions.Logical;
+using Interpreter.Parser.NonTerminalExpressions.Multiplicative;
+using Interpreter.Parser.NonTerminalExpressions.Relational;
+using Interpreter.Parser.NonTerminalExpressions.Unary;
 using Interpreter.Parser.Statements;
 using Interpreter.Parser.TerminalExpressions;
 
@@ -59,6 +65,10 @@ namespace Interpreter.Parser
 
 		public IStatement BuildStatement()
 		{
+			if (_currentToken.Type == TokenType.EOF)
+			{
+				return null;
+			}
 			if (_currentToken.Type == TokenType.TypeIdentifier)
 			{
 				return BuildDeclaration();
@@ -67,8 +77,7 @@ namespace Interpreter.Parser
 			{
 				if (_nextToken.Type == TokenType.LeftBracket)
 				{
-					//Invocation
-					throw new NotImplementedException();
+					return BuildInvocation();
 				}
 				if (_nextToken.Type == TokenType.Assign)
 				{
@@ -77,21 +86,18 @@ namespace Interpreter.Parser
 			}
 			if (_currentToken.Type == TokenType.If)
 			{
-				//If
-				throw new NotImplementedException();
+				return BuildIf();
 			}
 			if (_currentToken.Type == TokenType.While)
 			{
-				//While
-				throw new NotImplementedException();
+				return BuildWhile();
 			}
 			if (_currentToken.Type == TokenType.LeftSquareBracket)
 			{
-				//Scope
-				throw new NotImplementedException();
+				return BuildScope();
 			}
 			
-			throw new NotImplementedException();
+			throw new SyntaxException($"{_currentToken.Type} is not a statement.");
 		}
 
 		private IStatement BuildDeclaration()
@@ -111,6 +117,44 @@ namespace Interpreter.Parser
 
 			return new Assignment(variable.Value, expression);
 		}
+		private IStatement BuildInvocation()
+		{
+			IExpression expr = ParseFunction();
+			Take(TokenType.Terminator);
+			return new Invocation(expr);
+		}
+
+		private IStatement BuildIf()
+		{
+			Take(TokenType.If);
+			Take(TokenType.LeftBracket);
+			IExpression expr = ParseExpression();
+			Take(TokenType.RightBracket);
+			IStatement stmt = BuildStatement();
+			return new If(expr, stmt);
+		}
+
+		private IStatement BuildWhile()
+		{
+			Take(TokenType.While);
+			Take(TokenType.LeftBracket);
+			IExpression expr = ParseExpression();
+			Take(TokenType.RightBracket);
+			IStatement stmt = BuildStatement();
+			return new While(expr, stmt);
+		}
+
+		private IStatement BuildScope()
+		{
+			List<IStatement> statements = new List<IStatement>();
+			Take(TokenType.LeftSquareBracket);
+			while (_currentToken.Type != TokenType.RightSquareBracket)
+			{
+				statements.Add(BuildStatement());
+			}
+			Take(TokenType.RightSquareBracket);
+			return new Scope(statements);
+		}
 
 		private IExpression ParseExpression()
 		{
@@ -120,25 +164,34 @@ namespace Interpreter.Parser
 		private IExpression ParseLogicalExpression()
 		{
 			IExpression left = ParseEqualityExpression();
-			// while is logical
-			//do parse right
-			// left = exp(left, right)
+			while (IsLogical())
+			{
+				var op = Take();
+				var right = ParseEqualityExpression();
+				left = CreateNewBinaryExpression(op.Type, left, right);
+			}
 			return left;
 		}
 		private IExpression ParseEqualityExpression()
 		{
 			IExpression left = ParseRelationalExpression();
-			// while is equality
-			//do parse right
-			// left = exp(left, right)
+			while (IsEquality())
+			{
+				var op = Take();
+				var right = ParseRelationalExpression();
+				left = CreateNewBinaryExpression(op.Type, left, right);
+			}
 			return left;
 		}
 		private IExpression ParseRelationalExpression()
 		{
 			IExpression left = ParseAdditiveExpression();
-			// while is relational
-			//do parse right
-			// left = exp(left, right)
+			while (IsRelational())
+			{
+				var op = Take();
+				var right = ParseAdditiveExpression();
+				left = CreateNewBinaryExpression(op.Type, left, right);
+			}
 			return left;
 		}
 		private IExpression ParseAdditiveExpression()
@@ -155,15 +208,22 @@ namespace Interpreter.Parser
 		private IExpression ParseMultiplicativeExpression()
 		{
 			IExpression left = ParseUnaryExpression();
-			// while is multiplicative
-			//do parse right
-			// left = exp(left, right)
+			while (IsMultiplicative())
+			{
+				var op = Take();
+				var right = ParseUnaryExpression();
+				left = CreateNewBinaryExpression(op.Type, left, right);
+			}
 			return left;
 		}
 		private IExpression ParseUnaryExpression()
 		{
 			IExpression left = ParsePrimaryExpression();
-			// parse unary
+			if (IsUnary())
+			{
+				var op = Take();
+				left = CreateNewUnaryExpression(op.Type, left);
+			}
 			return left;
 		}
 		private IExpression ParsePrimaryExpression()
@@ -172,8 +232,7 @@ namespace Interpreter.Parser
 			{
 				if (_nextToken.Type == TokenType.LeftBracket)
 				{
-					// Parse function
-					throw new NotImplementedException();
+					return ParseFunction();
 				}
 				var tok = Take();
 				return new VariableExpr(tok.Value);
@@ -197,27 +256,65 @@ namespace Interpreter.Parser
 				case TokenType.Plus:
 					return new Add(left, right);
 				case TokenType.Minus:
-					throw new NotImplementedException();
+					return new Subtract(left, right);
 				case TokenType.Equality:
-					throw new NotImplementedException();
+					return new Equals(left, right);
 				case TokenType.NotEquality:
-					throw new NotImplementedException();
+					return new NotEquals(left, right);
 				case TokenType.And:
-					throw new NotImplementedException();
+					return new And(left, right);
 				case TokenType.Or:
-					throw new NotImplementedException();
+					return new Or(left, right);
 				case TokenType.Divide:
-					throw new NotImplementedException();
+					return new Divide(left, right);
 				case TokenType.Multiply:
-					throw new NotImplementedException();
+					return new Multiply(left, right);
+				case TokenType.Mod:
+					return new Mod(left, right);
 				case TokenType.GreaterThan:
-					throw new NotImplementedException();
+					return new GreaterThan(left, right);
 				case TokenType.LessThan:
-					throw new NotImplementedException();
+					return new LessThan(left, right);
 				default:
 					throw new SyntaxException($"{type.ToString()} is not binary operator");
-			}	
+			}
 		}
+		private IExpression CreateNewUnaryExpression(TokenType type, IExpression expr)
+		{
+			switch (type)
+			{
+				case TokenType.Not:
+					return new Not(expr);
+				default:
+					throw new SyntaxException($"{type.ToString()} is not binary operator");
+			}
+		}
+
+		private IExpression ParseFunction()
+		{
+			var identifier = Take(TokenType.Identifier);
+			Take(TokenType.LeftBracket);
+			List<IExpression> exprList = new List<IExpression>();
+			while (_currentToken.Type != TokenType.RightBracket)
+			{
+				exprList.Add(ParseExpression());
+				if (_currentToken.Type == TokenType.Comma)
+				{
+					Take(TokenType.Comma);
+				}
+			}
+			Take(TokenType.RightBracket);
+			switch (identifier.Value)
+			{
+				case "echo":
+					return new Echo(exprList);
+				case "inttostr":
+					return new IntToStr(exprList);
+				default:
+					throw new SyntaxException($"Function {identifier.Value} does not exist.");
+			}
+		}
+		#region IsTokenType
 		private bool IsAdditive()
 		{
 			switch (_currentToken.Type)
@@ -229,6 +326,65 @@ namespace Interpreter.Parser
 					return false;
 			}
 		}
+		private bool IsMultiplicative()
+		{
+			switch (_currentToken.Type)
+			{
+				case TokenType.Divide:
+				case TokenType.Multiply:
+				case TokenType.Mod:
+					return true;
+				default:
+					return false;
+			}
+		}
+		private bool IsEquality()
+		{
+			switch (_currentToken.Type)
+			{
+				case TokenType.Equality:
+				case TokenType.NotEquality:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		private bool IsLogical()
+		{
+			switch (_currentToken.Type)
+			{
+				case TokenType.And:
+				case TokenType.Or:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		private bool IsRelational()
+		{
+			switch (_currentToken.Type)
+			{
+				case TokenType.GreaterThan:
+				case TokenType.LessThan:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		private bool IsUnary()
+		{
+			switch (_currentToken.Type)
+			{
+				case TokenType.Not:
+					return true;
+				default:
+					return false;
+			}
+		}
+		#endregion
 
 	}
 }

@@ -26,7 +26,7 @@ namespace Interpreter
 				return (T)variable.Data;
 			}
 
-			throw new InvalidCastException($"Cannot {variable.Data.ToString()} to {variable.Type}.");
+			throw new InvalidCastException($"Cannot cast {variable.Data.ToString()} to {variable.Type}.");
 		}
 	}
 }
