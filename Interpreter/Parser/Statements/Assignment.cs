@@ -15,9 +15,16 @@ namespace Interpreter.Parser.Statements
 			_rvalue = expression;
 			_identifier = identifier;
 		}	
-		public void Execute(Context context)
+		public void Execute(Context.Context context)
 		{
-			throw new NotImplementedException();
+			var varib = context.LookUpVariable(_identifier);
+			var result = _rvalue.Intrerpret(context);
+			if (varib.Type == result.Type)
+				varib.SetValue(result.Data);
+			else
+			{
+				throw new SyntaxException($"Cannot assign {result.Type} to {varib.Type}");
+			}
 		}
 	}
 }

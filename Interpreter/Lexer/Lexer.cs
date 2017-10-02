@@ -101,10 +101,6 @@ namespace Interpreter.Lexer
 			}
 			string literalString = newLiteral.ToString().ToLower();
 
-			if (literalString == LexerDefinitions.NullLiteral)
-			{
-				return new Token(TokenType.NullLiteral);
-			}
 
 			if (literalString == LexerDefinitions.While)
 			{

@@ -35,12 +35,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
+    <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\Value.cs" />
     <Compile Include="Lexer\Lexer.cs" />
     <Compile Include="Lexer\LexerDefinitions.cs" />
     <Compile Include="Lexer\Token.cs" />
     <Compile Include="Lexer\TokenType.cs" />
     <Compile Include="Parser\IExpression.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Additive\Add.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Additive\Subtract.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Equality\Equals.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Equality\NotEquals.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Logical\And.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Logical\Or.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Multiplicative\Divide.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Multiplicative\Multiply.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Relational\GreaterThan.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Relational\LessThan.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Unary\Not.cs" />
+    <Compile Include="Parser\TerminalExpressions\Literal.cs" />
+    <Compile Include="Parser\TerminalExpressions\VariableExpr.cs" />
     <Compile Include="Parser\Statements\Assignment.cs" />
     <Compile Include="Parser\Statements\Declaration.cs" />
     <Compile Include="Parser\Statements\If.cs" />
@@ -49,7 +63,9 @@
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\Statements\Scope.cs" />
     <Compile Include="Parser\Statements\While.cs" />
+    <Compile Include="Parser\SyntaxError.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="TypeHelper.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

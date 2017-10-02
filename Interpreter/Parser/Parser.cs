@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interpreter.Lexer;
+using Interpreter.Parser.NonTerminalExpressions.Additive;
 using Interpreter.Parser.Statements;
+using Interpreter.Parser.TerminalExpressions;
 
 namespace Interpreter.Parser
 {
@@ -49,7 +51,7 @@ namespace Interpreter.Parser
 		{
 			if (_currentToken.Type != type)
 			{
-				throw new ApplicationException("Failed to take token");	//TODO: Better errors
+				throw new SyntaxException($"{_currentToken} is not of type {type}");
 			}
 			return Take();
 		}
@@ -112,8 +114,121 @@ namespace Interpreter.Parser
 
 		private IExpression ParseExpression()
 		{
-			throw new NotImplementedException();
+			return ParseLogicalExpression();
 		}
-		
+
+		private IExpression ParseLogicalExpression()
+		{
+			IExpression left = ParseEqualityExpression();
+			// while is logical
+			//do parse right
+			// left = exp(left, right)
+			return left;
+		}
+		private IExpression ParseEqualityExpression()
+		{
+			IExpression left = ParseRelationalExpression();
+			// while is equality
+			//do parse right
+			// left = exp(left, right)
+			return left;
+		}
+		private IExpression ParseRelationalExpression()
+		{
+			IExpression left = ParseAdditiveExpression();
+			// while is relational
+			//do parse right
+			// left = exp(left, right)
+			return left;
+		}
+		private IExpression ParseAdditiveExpression()
+		{
+			IExpression left = ParseMultiplicativeExpression();
+			while (IsAdditive())
+			{
+				var op = Take();
+				var right = ParseMultiplicativeExpression();
+				left = CreateNewBinaryExpression(op.Type, left, right);
+			}
+			return left;
+		}
+		private IExpression ParseMultiplicativeExpression()
+		{
+			IExpression left = ParseUnaryExpression();
+			// while is multiplicative
+			//do parse right
+			// left = exp(left, right)
+			return left;
+		}
+		private IExpression ParseUnaryExpression()
+		{
+			IExpression left = ParsePrimaryExpression();
+			// parse unary
+			return left;
+		}
+		private IExpression ParsePrimaryExpression()
+		{
+			if (_currentToken.Type == TokenType.Identifier)
+			{
+				if (_nextToken.Type == TokenType.LeftBracket)
+				{
+					// Parse function
+					throw new NotImplementedException();
+				}
+				var tok = Take();
+				return new VariableExpr(tok.Value);
+
+			}
+			if (_currentToken.Type == TokenType.StringLiteral ||
+				_currentToken.Type == TokenType.IntegerLiteral ||
+				_currentToken.Type == TokenType.FileLiteral ||
+				_currentToken.Type == TokenType.BoolLiteral)
+			{
+				var tok = Take();
+				return new Literal(tok.Type, tok.Value);
+			}
+			throw new SyntaxException("Unknown expression");
+		}
+
+		private IExpression CreateNewBinaryExpression(TokenType type, IExpression left, IExpression right)
+		{
+			switch (type)
+			{
+				case TokenType.Plus:
+					return new Add(left, right);
+				case TokenType.Minus:
+					throw new NotImplementedException();
+				case TokenType.Equality:
+					throw new NotImplementedException();
+				case TokenType.NotEquality:
+					throw new NotImplementedException();
+				case TokenType.And:
+					throw new NotImplementedException();
+				case TokenType.Or:
+					throw new NotImplementedException();
+				case TokenType.Divide:
+					throw new NotImplementedException();
+				case TokenType.Multiply:
+					throw new NotImplementedException();
+				case TokenType.GreaterThan:
+					throw new NotImplementedException();
+				case TokenType.LessThan:
+					throw new NotImplementedException();
+				default:
+					throw new SyntaxException($"{type.ToString()} is not binary operator");
+			}	
+		}
+		private bool IsAdditive()
+		{
+			switch (_currentToken.Type)
+			{
+				case TokenType.Plus:
+				case TokenType.Minus:
+					return true;
+				default:
+					return false;
+			}
+		}
+
 	}
 }

@@ -8,7 +8,7 @@ namespace Interpreter.Parser.Statements
 {
 	public class Invocation : IStatement
 	{
-		public void Execute(Context context)
+		public void Execute(Context.Context context)
 		{
 			throw new NotImplementedException();
 		}

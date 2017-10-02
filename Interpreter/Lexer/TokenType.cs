@@ -18,26 +18,38 @@ namespace Interpreter.Lexer
 		FileLiteral,
 		BoolLiteral,
 		IntegerLiteral,
-		NullLiteral,
 
 		LeftBracket,
 		RightBracket,
 		LeftSquareBracket,
 		RightSquareBracket,
-		
+
+		// Additive
 		Plus,
-		Minus,
+		Minus, 
+
+		// Multiplicative
 		Multiply,
 		Divide,
 		Mod,
+
 		Assign,
 
 		While,
 		If,
 
+		//logical
 		And,
 		Or,
+
+		//Unary
 		Not,
+
+		//Relational
+		GreaterThan,
+		LessThan,
+		
+		//Equality
 		Equality,
 		NotEquality
 	}

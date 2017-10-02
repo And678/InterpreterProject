@@ -24,7 +24,6 @@ namespace Interpreter.Lexer
 			"true",
 			"false"
 		};
-		public static readonly string NullLiteral = "null";
 
 		public static readonly string While = "while";
 		public static readonly string If = "if";
@@ -45,6 +44,8 @@ namespace Interpreter.Lexer
 				{ TokenType.Divide, "/"},
 				{ TokenType.Mod, "%"},
 				{ TokenType.Assign, "="},
+				{ TokenType.GreaterThan, ">" },
+				{ TokenType.LessThan, "<" },
 
 				{ TokenType.And, "&&"},
 				{ TokenType.Or, "||"},

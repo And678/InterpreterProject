@@ -16,9 +16,13 @@ namespace Interpreter.Parser.Statements
 			_type = type;
 			_identifier = identifier;
 		}
-		public void Execute(Context context)
+		public void Execute(Context.Context context)
 		{
-			throw new NotImplementedException();
+			context.AddVariable(_type, _identifier);
+		}
+		public override string ToString()
+		{
+			return $"Declaring variable {_identifier} of type {_type}.";
 		}
 	}
 }
