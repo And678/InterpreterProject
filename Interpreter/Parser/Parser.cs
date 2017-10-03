@@ -218,11 +218,17 @@ namespace Interpreter.Parser
 		}
 		private IExpression ParseUnaryExpression()
 		{
-			IExpression left = ParsePrimaryExpression();
+			IExpression left;
 			if (IsUnary())
 			{
 				var op = Take();
+				left = ParsePrimaryExpression();
 				left = CreateNewUnaryExpression(op.Type, left);
+			}
+			else
+			{
+
+				left = ParsePrimaryExpression();
 			}
 			return left;
 		}
@@ -247,7 +253,7 @@ namespace Interpreter.Parser
 			}
 			if (_currentToken.Type == TokenType.StringLiteral ||
 				_currentToken.Type == TokenType.IntegerLiteral ||
-				_currentToken.Type == TokenType.FileLiteral ||
+				_currentToken.Type == TokenType.PathLiteral ||
 				_currentToken.Type == TokenType.BoolLiteral)
 			{
 				var tok = Take();
@@ -315,12 +321,14 @@ namespace Interpreter.Parser
 			{
 				case "echo":
 					return new Echo(exprList);
-				case "inttostr":
-					return new IntToStr(exprList);
+				case "tostr":
+					return new ToStr(exprList);
 				case "gets":
 					return new Gets(exprList);
-				case "strtoint":
-					return new StrToInt(exprList);
+				case "toint":
+					return new ToInt(exprList);
+				case "getfilesize":
+					return new GetFileSize(exprList);
 				default:
 					throw new SyntaxException($"Function {identifier.Value} does not exist.");
 			}

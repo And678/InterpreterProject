@@ -1,0 +1,2 @@
+echo(tostr(thisdir));
+echo(tostr(thisfile));

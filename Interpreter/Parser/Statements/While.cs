@@ -21,7 +21,7 @@ namespace Interpreter.Parser.Statements
 			var result = _expression.Intrerpret(context);
 			if (result.Type == "bool")
 			{
-				while (TypeHelper.Convert<bool>(result))
+				while (TypeHelpers.Convert<bool>(result))
 				{
 					_statement.Execute(context);
 					result = _expression.Intrerpret(context);

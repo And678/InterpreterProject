@@ -18,7 +18,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Multiplicative
 			var rightResult = _right.Intrerpret(context);
 			if (leftResult.Type == "int" && rightResult.Type == "int")
 			{
-				return new Value("int", TypeHelper.Convert<int>(leftResult) % TypeHelper.Convert<int>(rightResult));
+				return new Value("int", TypeHelpers.Convert<int>(leftResult) % TypeHelpers.Convert<int>(rightResult));
 			}
 			throw new SyntaxException($"{leftResult.Type} and {rightResult.Type} don't have MOD operation.");
 		}

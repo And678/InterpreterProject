@@ -1,6 +1,6 @@
 int expect;
 expect = 5 + 50 % 3 * 2 + 4;
-echo("5 + 50 % 3 * 2 + 4 = " + inttostr(expect));
+echo("5 + 50 % 3 * 2 + 4 = " + tostr(expect));
 
 expect = (5 + 50) % 3 * 2 + 4;
-echo("(5 + 50) % 3 * 2 + 4 = " + inttostr(expect));
+echo("(5 + 50) % 3 * 2 + 4 = " + tostr(expect));

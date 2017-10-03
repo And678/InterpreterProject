@@ -21,15 +21,15 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			var result = _expression.Intrerpret(context);
 			if (result.Type == "int")
 			{
-				context.AddToOutput(TypeHelper.Convert<int>(result));
+				context.AddToOutput(TypeHelpers.Convert<int>(result));
 			}
 			else if (result.Type == "string")
 			{
-				context.AddToOutput(TypeHelper.Convert<string>(result));
+				context.AddToOutput(TypeHelpers.Convert<string>(result));
 			}
 			else if (result.Type == "bool")
 			{
-				context.AddToOutput(TypeHelper.Convert<bool>(result));
+				context.AddToOutput(TypeHelpers.Convert<bool>(result));
 			}
 			else
 			{

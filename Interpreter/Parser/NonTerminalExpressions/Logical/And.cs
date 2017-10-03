@@ -20,7 +20,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Logical
 
 			if (leftResult.Type == "bool" && rightResult.Type == "bool")
 			{
-				return new Value("bool", TypeHelper.Convert<bool>(leftResult) && TypeHelper.Convert<bool>(rightResult));
+				return new Value("bool", TypeHelpers.Convert<bool>(leftResult) && TypeHelpers.Convert<bool>(rightResult));
 			}
 
 			throw new SyntaxException($"{leftResult.Type} and {rightResult.Type} don't have AND operation.");

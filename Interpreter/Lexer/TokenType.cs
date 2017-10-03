@@ -15,7 +15,7 @@ namespace Interpreter.Lexer
 		TypeIdentifier,
 
 		StringLiteral,
-		FileLiteral,
+		PathLiteral,
 		BoolLiteral,
 		IntegerLiteral,
 

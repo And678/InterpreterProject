@@ -25,22 +25,22 @@ namespace Interpreter.Parser.NonTerminalExpressions.Equality
 
 			if (leftResult.Type == "int" && rightResult.Type == "int")
 			{
-				return new Value("bool", TypeHelper.Convert<int>(leftResult) != TypeHelper.Convert<int>(rightResult));
+				return new Value("bool", TypeHelpers.Convert<int>(leftResult) != TypeHelpers.Convert<int>(rightResult));
 			}
 
 			if (leftResult.Type == "string" && rightResult.Type == "string")
 			{
-				return new Value("bool", TypeHelper.Convert<string>(leftResult) != TypeHelper.Convert<string>(rightResult));
+				return new Value("bool", TypeHelpers.Convert<string>(leftResult) != TypeHelpers.Convert<string>(rightResult));
 			}
 
 			if (leftResult.Type == "file" && rightResult.Type == "file")
 			{
-				return new Value("bool", TypeHelper.Convert<string>(leftResult) != TypeHelper.Convert<string>(rightResult));
+				return new Value("bool", TypeHelpers.Convert<string>(leftResult) != TypeHelpers.Convert<string>(rightResult));
 			}
 
 			if (leftResult.Type == "bool" && rightResult.Type == "bool")
 			{
-				return new Value("bool", TypeHelper.Convert<bool>(leftResult) != TypeHelper.Convert<bool>(rightResult));
+				return new Value("bool", TypeHelpers.Convert<bool>(leftResult) != TypeHelpers.Convert<bool>(rightResult));
 			}
 
 			throw new SyntaxException($"{leftResult.Type} and {rightResult.Type} don't have NOTEQUALS operation.");

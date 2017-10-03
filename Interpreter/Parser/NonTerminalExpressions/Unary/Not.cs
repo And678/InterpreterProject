@@ -17,7 +17,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Unary
 
 			if (result.Type == "bool")
 			{
-				return new Value("bool", !TypeHelper.Convert<bool>(result));
+				return new Value("bool", !TypeHelpers.Convert<bool>(result));
 			}
 			throw new SyntaxException($"{result.Type}don't have NOT operation.");
 		}

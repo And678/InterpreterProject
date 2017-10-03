@@ -1,6 +1,6 @@
 echo("Enter number of fibonacci number to find");
 int NumToFind;
-NumToFind = StrToInt(gets());
+NumToFind = ToInt(gets());
 
 int current;
 current = 2;
@@ -19,4 +19,4 @@ while(current < NumToFind) {
 	b = b + temp;
 	current = current + 1;
 }
-echo(IntToStr(NumToFind) + "th Fibonacci number starting from 0 is: " + IntToStr(b));
+echo(ToStr(NumToFind) + "th Fibonacci number starting from 0 is: " + ToStr(b));

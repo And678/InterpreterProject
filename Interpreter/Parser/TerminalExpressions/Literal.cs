@@ -1,4 +1,5 @@
-﻿using Interpreter.Context;
+﻿using System.IO;
+using Interpreter.Context;
 using Interpreter.Lexer;
 
 namespace Interpreter.Parser.TerminalExpressions
@@ -35,9 +36,17 @@ namespace Interpreter.Parser.TerminalExpressions
 			{
 				return new Value("int", int.Parse(_value));
 			}
-			if (_type == TokenType.FileLiteral)
+			if (_type == TokenType.PathLiteral)
 			{
-				return new Value("file", _value);
+				if (FileHelpers.IsValidPath(_value))
+				{
+					if (Path.IsPathRooted(_value))
+					{
+						return new Value("path", _value);
+					}
+					return new Value("path", FileHelpers.BuildAbsolute(
+						context.GetCurrentPath(), _value));
+				}
 			}
 			throw new SyntaxException($"{_type} is not literal.");
 		}

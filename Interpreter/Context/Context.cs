@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,14 +14,22 @@ namespace Interpreter.Context
 
 		private IInputManager _inputManager;
 
-		public Context()
-		{
-			_variables = new Dictionary<string, Value>();
-		}
-		public Context(IInputManager myInputManager)
+		public Context(IInputManager myInputManager, string myPath)
 		{
 			_variables = new Dictionary<string, Value>();
 			_inputManager = myInputManager;
+			AddVariable("path", "thisfile", myPath);
+			AddVariable("path", "thisdir", Path.GetDirectoryName(myPath));
+		}
+
+		public string GetCurrentFile()
+		{
+			return TypeHelpers.Convert<string>(LookUpVariable("thisfile"));
+		}
+
+		public string GetCurrentPath()
+		{
+			return TypeHelpers.Convert<string>(LookUpVariable("thisdir"));
 		}
 
 		public Value LookUpVariable(string name)
@@ -37,6 +46,16 @@ namespace Interpreter.Context
 			if (!_variables.ContainsKey(name))
 			{
 				_variables.Add(name, new Value(type));
+				return;
+			}
+			throw new SyntaxException("Variable already exists");
+		}
+
+		public void AddVariable(string type, string name, object data)
+		{
+			if (!_variables.ContainsKey(name))
+			{
+				_variables.Add(name, new Value(type, data));
 				return;
 			}
 			throw new SyntaxException("Variable already exists");

@@ -28,12 +28,12 @@ namespace Interpreter.Parser.NonTerminalExpressions.Additive
 
 		private Value AddStrings(Value left, Value right)
 		{
-			return new Value("string", TypeHelper.Convert<string>(left) + TypeHelper.Convert<string>(right));
+			return new Value("string", TypeHelpers.Convert<string>(left) + TypeHelpers.Convert<string>(right));
 		}
 
 		private Value AddInts(Value left, Value right)
 		{
-			return new Value("int", TypeHelper.Convert<int>(left) + TypeHelper.Convert<int>(right));
+			return new Value("int", TypeHelpers.Convert<int>(left) + TypeHelpers.Convert<int>(right));
 		}
 	}
 }

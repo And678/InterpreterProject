@@ -41,7 +41,7 @@ namespace Interpreter.Lexer
 			{
 				return ParseStringLiteral();
 			}
-			if (current == LexerDefinitions.FileDelimiter[0])
+			if (current == LexerDefinitions.PathDelimiter[0])
 			{
 				return ParseStringLiteral(true);
 			}
@@ -61,14 +61,14 @@ namespace Interpreter.Lexer
 		}
 
 
-		private Token ParseStringLiteral(bool isFile = false)
+		private Token ParseStringLiteral(bool isPath = false)
 		{
 			_currentIndex++;
 			StringBuilder newLiteral = new StringBuilder();
 			try
 			{
-				while (_code[_currentIndex] != (isFile ? 
-					LexerDefinitions.FileDelimiter[0] : LexerDefinitions.StringDelimiter[0]))
+				while (_code[_currentIndex] != (isPath ? 
+					LexerDefinitions.PathDelimiter[0] : LexerDefinitions.StringDelimiter[0]))
 				{
 					newLiteral.Append(_code[_currentIndex]);
 					_currentIndex++;
@@ -76,11 +76,11 @@ namespace Interpreter.Lexer
 			}
 			catch (IndexOutOfRangeException)
 			{
-				throw new SyntaxException("Unenclosed string/file literal");
+				throw new SyntaxException("Unenclosed string/path literal");
 			}
 			_currentIndex++;
 			return new Token(
-				(isFile ? TokenType.FileLiteral : TokenType.StringLiteral),
+				(isPath ? TokenType.PathLiteral : TokenType.StringLiteral),
 				newLiteral.ToString()
 			);
 		}

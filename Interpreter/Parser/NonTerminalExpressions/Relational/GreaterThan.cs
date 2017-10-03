@@ -24,11 +24,11 @@ namespace Interpreter.Parser.NonTerminalExpressions.Relational
 			var rightResult = _right.Intrerpret(context);
 			if (leftResult.Type == "int" && rightResult.Type == "int")
 			{
-				return new Value("bool", TypeHelper.Convert<int>(leftResult) > TypeHelper.Convert<int>(rightResult));
+				return new Value("bool", TypeHelpers.Convert<int>(leftResult) > TypeHelpers.Convert<int>(rightResult));
 			}
 			if (leftResult.Type == "string" && rightResult.Type == "string")
 			{
-				return new Value("bool", TypeHelper.Convert<string>(leftResult).Length > TypeHelper.Convert<string>(rightResult).Length);
+				return new Value("bool", TypeHelpers.Convert<string>(leftResult).Length > TypeHelpers.Convert<string>(rightResult).Length);
 			}
 			throw new SyntaxException($"{leftResult.Type} and {rightResult.Type} don't have GREATERTHAN operation.");
 		}

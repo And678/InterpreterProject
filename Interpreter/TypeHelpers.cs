@@ -7,7 +7,7 @@ using Interpreter.Context;
 
 namespace Interpreter
 {
-	public static class TypeHelper
+	public static class TypeHelpers
 	{
 		public static T Convert<T>(Value variable)
 		{
@@ -16,7 +16,7 @@ namespace Interpreter
 				return (T)variable.Data;
 			}
 
-			if ((variable.Type == "string" || variable.Type == "file") && typeof(T) == typeof(string))
+			if ((variable.Type == "string" || variable.Type == "path") && typeof(T) == typeof(string))
 			{
 				return (T)variable.Data;
 			}
@@ -26,7 +26,7 @@ namespace Interpreter
 				return (T)variable.Data;
 			}
 
-			throw new InvalidCastException($"Cannot cast {variable.Data.ToString()} to {variable.Type}.");
+			throw new InvalidCastException($"Cannot cast {variable.Data.ToString()} to {typeof(T).ToString()}.");
 		}
 	}
 }

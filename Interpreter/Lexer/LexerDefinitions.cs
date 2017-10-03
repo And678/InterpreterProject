@@ -14,11 +14,11 @@ namespace Interpreter.Lexer
 		{
 			"int",
 			"bool",
-			"file",
+			"path",
 			"string"
 		};
 		public static readonly string StringDelimiter = "\"";
-		public static readonly string FileDelimiter = "\'";
+		public static readonly string PathDelimiter = "\'";
 		public static readonly List<string> BoolValues = new List<string>()
 		{
 			"true",
