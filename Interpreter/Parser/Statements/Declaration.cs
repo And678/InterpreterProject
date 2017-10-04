@@ -8,10 +8,10 @@ namespace Interpreter.Parser.Statements
 {
 	public class Declaration : IStatement
 	{
-		private string _type;
+		private ValueTypes _type;
 		private string _identifier;
 
-		public Declaration(string type, string identifier)
+		public Declaration(ValueTypes type, string identifier)
 		{
 			_type = type;
 			_identifier = identifier;

@@ -19,15 +19,15 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 		public Value Interpret(Context.Context context)
 		{
 			var result = _expression.Interpret(context);
-			if (result.Type == "int")
+			if (result.Type == ValueTypes.Int)
 			{
 				context.AddToOutput(TypeHelpers.Convert<int>(result));
 			}
-			else if (result.Type == "string")
+			else if (result.Type == ValueTypes.String)
 			{
 				context.AddToOutput(TypeHelpers.Convert<string>(result));
 			}
-			else if (result.Type == "bool")
+			else if (result.Type == ValueTypes.Bool)
 			{
 				context.AddToOutput(TypeHelpers.Convert<bool>(result));
 			}

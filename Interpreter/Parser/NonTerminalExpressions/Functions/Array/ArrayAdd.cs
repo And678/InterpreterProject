@@ -24,7 +24,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions.Array
 			var result1 = _array.Interpret(context);
 			var result2 = _expr.Interpret(context);
 
-			if (result1.Type == "array")
+			if (result1.Type == ValueTypes.Array)
 			{
 				TypeHelpers.Convert<List<Value>>(result1).Add(Value.Copy(result2));
 			}

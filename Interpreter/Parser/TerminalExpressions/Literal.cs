@@ -20,21 +20,21 @@ namespace Interpreter.Parser.TerminalExpressions
 			{
 				if (_value == "true")
 				{
-					return new Value("bool", true);
+					return new Value(ValueTypes.Bool, true);
 				}
 				if (_value == "false")
 				{
-					return new Value("bool", false);
+					return new Value(ValueTypes.Bool, false);
 				}
 				throw new SyntaxException($"Unknown boolean literal - {_value}");
 			}
 			if (_type == TokenType.StringLiteral)
 			{
-				return new Value("string", _value);
+				return new Value(ValueTypes.String, _value);
 			}
 			if (_type == TokenType.IntegerLiteral)
 			{
-				return new Value("int", int.Parse(_value));
+				return new Value(ValueTypes.Int, int.Parse(_value));
 			}
 			if (_type == TokenType.PathLiteral)
 			{
@@ -42,9 +42,9 @@ namespace Interpreter.Parser.TerminalExpressions
 				{
 					if (Path.IsPathRooted(_value))
 					{
-						return new Value("path", _value);
+						return new Value(ValueTypes.Path, _value);
 					}
-					return new Value("path", FileHelpers.BuildAbsolute(
+					return new Value(ValueTypes.Path, FileHelpers.BuildAbsolute(
 						context.GetCurrentPath(), _value));
 				}
 			}

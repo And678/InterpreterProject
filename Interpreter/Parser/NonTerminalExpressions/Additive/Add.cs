@@ -15,11 +15,11 @@ namespace Interpreter.Parser.NonTerminalExpressions.Additive
 		{
 			var leftResult = _left.Interpret(context);
 			var rightResult = _right.Interpret(context);
-			if (leftResult.Type == "string" && rightResult.Type == "string")
+			if (leftResult.Type == ValueTypes.String && rightResult.Type == ValueTypes.String)
 			{
 				return AddStrings(leftResult, rightResult);
 			}
-			if (leftResult.Type == "int" && rightResult.Type == "int")
+			if (leftResult.Type == ValueTypes.Int && rightResult.Type == ValueTypes.Int)
 			{
 				return AddInts(leftResult, rightResult);
 			}
@@ -28,12 +28,12 @@ namespace Interpreter.Parser.NonTerminalExpressions.Additive
 
 		private Value AddStrings(Value left, Value right)
 		{
-			return new Value("string", TypeHelpers.Convert<string>(left) + TypeHelpers.Convert<string>(right));
+			return new Value(ValueTypes.String, TypeHelpers.Convert<string>(left) + TypeHelpers.Convert<string>(right));
 		}
 
 		private Value AddInts(Value left, Value right)
 		{
-			return new Value("int", TypeHelpers.Convert<int>(left) + TypeHelpers.Convert<int>(right));
+			return new Value(ValueTypes.Int, TypeHelpers.Convert<int>(left) + TypeHelpers.Convert<int>(right));
 		}
 	}
 }

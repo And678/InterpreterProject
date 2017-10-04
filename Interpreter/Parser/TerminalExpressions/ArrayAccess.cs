@@ -17,7 +17,7 @@ namespace Interpreter.Parser.TerminalExpressions
 		{
 			var arr = _array.Interpret(context);
 			var ind = _index.Interpret(context);
-			if (arr.Type == "array" && ind.Type == "int")
+			if (arr.Type == ValueTypes.Array && ind.Type == ValueTypes.Int)
 			{
 				return TypeHelpers.Convert<List<Value>>(arr)[TypeHelpers.Convert<int>(ind)];
 			}

@@ -17,13 +17,13 @@ namespace Interpreter.Parser.NonTerminalExpressions.Relational
 		{
 			var leftResult = _left.Interpret(context);
 			var rightResult = _right.Interpret(context);
-			if (leftResult.Type == "int" && rightResult.Type == "int")
+			if (leftResult.Type == ValueTypes.Int && rightResult.Type == ValueTypes.Int)
 			{
-				return new Value("bool", TypeHelpers.Convert<int>(leftResult) < TypeHelpers.Convert<int>(rightResult));
+				return new Value(ValueTypes.Bool, TypeHelpers.Convert<int>(leftResult) < TypeHelpers.Convert<int>(rightResult));
 			}
-			if (leftResult.Type == "string" && rightResult.Type == "string")
+			if (leftResult.Type == ValueTypes.String && rightResult.Type == ValueTypes.String)
 			{
-				return new Value("bool", TypeHelpers.Convert<string>(leftResult).Length < TypeHelpers.Convert<string>(rightResult).Length);
+				return new Value(ValueTypes.Bool, TypeHelpers.Convert<string>(leftResult).Length < TypeHelpers.Convert<string>(rightResult).Length);
 			}
 			throw new SyntaxException($"{leftResult.Type} and {rightResult.Type} don't have LESSTHAN operation.");
 		}

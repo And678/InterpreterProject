@@ -1,0 +1,41 @@
+echo("Enter strings one by one. Enter empty string to continue.");
+array tested;
+string str;
+int len;
+
+while (str != "") {
+	str = gets();
+	if (str != "")
+		ArrayAdd(tested, str);
+}
+
+
+string output;
+output = "";
+len = ArrayLength(tested) - 1;
+while (len > -1) {
+	output = output + tested[len] + "; ";
+	len = len - 1;
+}
+echo(output);
+output = "";
+
+echo("Now enter strings strings to remove. Enter empty string to continue.");
+
+str = "s";
+int result;
+while (str != "") {
+	str = gets();
+	result = ArrayFind(tested, str);
+	if (result != -1)
+		ArrayRemove(tested, result);
+	if (result == -1)
+		echo("Not found");
+}
+
+len = ArrayLength(tested) - 1;
+while (len > -1) {
+	output = output + tested[len] + "; ";
+	len = len - 1;
+}
+echo(output);

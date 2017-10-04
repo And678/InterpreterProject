@@ -70,9 +70,13 @@ namespace Interpreter.Parser
 			{
 				return null;
 			}
-			if (_currentToken.Type == TokenType.TypeIdentifier)
+			if (_currentToken.Type == TokenType.IntIdentifier ||
+				_currentToken.Type == TokenType.StringIdentifier ||
+				_currentToken.Type == TokenType.BoolIdentifier ||
+				_currentToken.Type == TokenType.PathIdentifier ||
+				_currentToken.Type == TokenType.ArrayIdentifier)
 			{
-				return BuildDeclaration();
+				return BuildDeclaration(_currentToken.Type);
 			}
 			if (_currentToken.Type == TokenType.Identifier)
 			{
@@ -101,12 +105,25 @@ namespace Interpreter.Parser
 			throw new SyntaxException($"{_currentToken.Type} is not a statement.");
 		}
 
-		private IStatement BuildDeclaration()
+		private IStatement BuildDeclaration(TokenType type)
 		{
-			Token typeToken = Take(TokenType.TypeIdentifier);
+			Take(type);
 			Token identifier = Take(TokenType.Identifier);
 			Take(TokenType.Terminator);
-			return new Declaration(typeToken.Value, identifier.Value);
+			switch (type)
+			{
+				case TokenType.IntIdentifier:
+					return new Declaration(ValueTypes.Int, identifier.Value);
+				case TokenType.StringIdentifier:
+					return new Declaration(ValueTypes.String, identifier.Value);
+				case TokenType.BoolIdentifier:
+					return new Declaration(ValueTypes.Bool, identifier.Value);
+				case TokenType.PathIdentifier:
+					return new Declaration(ValueTypes.Path, identifier.Value);
+				case TokenType.ArrayIdentifier:
+					return new Declaration(ValueTypes.Array, identifier.Value);
+			}
+			throw new SyntaxException("InternalError");
 		}
 
 		private IStatement BuildAssignment()
@@ -336,6 +353,10 @@ namespace Interpreter.Parser
 					return new ArrayAdd(exprList);
 				case "arraylength":
 					return new ArrayLength(exprList);
+				case "arrayremove":
+					return new ArrayRemove(exprList);
+				case "arrayfind":
+					return new ArrayFind(exprList);
 				default:
 					throw new SyntaxException($"Function {identifier.Value} does not exist.");
 			}

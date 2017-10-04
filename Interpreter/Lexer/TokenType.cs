@@ -12,7 +12,11 @@ namespace Interpreter.Lexer
 		Terminator,
 
 		Identifier,
-		TypeIdentifier,
+		IntIdentifier,
+		BoolIdentifier,
+		StringIdentifier,
+		PathIdentifier,
+		ArrayIdentifier,
 
 		StringLiteral,
 		PathLiteral,

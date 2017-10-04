@@ -5,11 +5,11 @@ using Interpreter.Context;
 
 namespace Interpreter.Parser.NonTerminalExpressions.Functions
 {
-	public class GetFileSize : IExpression
+	public class FileGetSize : IExpression
 	{
 		private const int ArgNumber = 1;
 		private IExpression _expression;
-		public GetFileSize(IList<IExpression> expr)
+		public FileGetSize(IList<IExpression> expr)
 		{
 			if (expr.Count != ArgNumber)
 				throw new SyntaxException($"GetFileSize accepts {ArgNumber} arguments.");
@@ -18,12 +18,12 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 		public Value Interpret(Context.Context context)
 		{
 			var result = _expression.Interpret(context);
-			if (result.Type == "path")
+			if (result.Type == ValueTypes.Path)
 			{
 				string resultPath = TypeHelpers.Convert<string>(result);
 				if (File.Exists(resultPath))
 				{
-					return new Value("int" , (int)new FileInfo(resultPath).Length);
+					return new Value(ValueTypes.Int , (int)new FileInfo(resultPath).Length);
 				}
 				throw new SyntaxException($"{resultPath} does not exist");
 			}

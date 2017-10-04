@@ -19,9 +19,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions.Array
 		{
 			var result1 = _array.Interpret(context);
 
-			if (result1.Type == "array")
+			if (result1.Type == ValueTypes.Array)
 			{
-				return new Value("int", TypeHelpers.Convert<List<Value>>(result1).Count);
+				return new Value(ValueTypes.Int, TypeHelpers.Convert<List<Value>>(result1).Count);
 			}
 			throw new SyntaxException($"ARRAYLENGTH does not support {result1.Type}.");
 		}

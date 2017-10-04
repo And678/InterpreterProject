@@ -18,8 +18,8 @@ namespace Interpreter.Context
 		{
 			_variables = new Dictionary<string, Value>();
 			_inputManager = myInputManager;
-			AddVariable("path", "thisfile", myPath);
-			AddVariable("path", "thisdir", Path.GetDirectoryName(myPath));
+			AddVariable(ValueTypes.Path, "thisfile", myPath);
+			AddVariable(ValueTypes.Path, "thisdir", Path.GetDirectoryName(myPath));
 		}
 
 		public string GetCurrentFile()
@@ -36,20 +36,16 @@ namespace Interpreter.Context
 		{
 			if (_variables.ContainsKey(name))
 			{
-				if (_variables[name].Type == "array")	//DEBUG
-				{
-					
-				}
 				return _variables[name];
 			}
 			throw new SyntaxException("Variable does not exist");
 		}
 
-		public void AddVariable(string type, string name)
+		public void AddVariable(ValueTypes type, string name)
 		{
 			if (!_variables.ContainsKey(name))
 			{
-				if (type == "array")
+				if (type == ValueTypes.Array)
 				{
 					_variables.Add(name, new Value(type, new List<Value>()));
 				}
@@ -62,7 +58,7 @@ namespace Interpreter.Context
 			throw new SyntaxException("Variable already exists");
 		}
 
-		public void AddVariable(string type, string name, object data)
+		public void AddVariable(ValueTypes type, string name, object data)
 		{
 			if (!_variables.ContainsKey(name))
 			{

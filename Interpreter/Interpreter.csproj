@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\IInputManager.cs" />
-    <Compile Include="Context\Value.cs" />
+    <Compile Include="Value.cs" />
     <Compile Include="FileHelpers.cs" />
     <Compile Include="Lexer\Lexer.cs" />
     <Compile Include="Lexer\LexerDefinitions.cs" />
@@ -67,10 +67,22 @@
     <Compile Include="Parser\NonTerminalExpressions\Equality\Equals.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Equality\NotEquals.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\Array\ArrayAdd.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\Array\ArrayFind.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\Array\ArrayLength.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\Array\ArrayRemove.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\Echo.cs" />
-    <Compile Include="Parser\NonTerminalExpressions\Functions\GetFileSize.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileCompare.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileCreate.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileExists.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileGetListInDir.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileGetSize.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileMatchesMask.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileMkDir.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileMove.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileDelete.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\Gets.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\ToBool.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\ToPath.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\ToStr.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\ToInt.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Logical\And.cs" />
@@ -94,6 +106,7 @@
     <Compile Include="Parser\Statements\While.cs" />
     <Compile Include="Parser\SyntaxError.cs" />
     <Compile Include="TypeHelpers.cs" />
+    <Compile Include="ValueTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">

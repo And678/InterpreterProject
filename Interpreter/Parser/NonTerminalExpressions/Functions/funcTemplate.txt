@@ -1,4 +1,4 @@
-public class Functio : IExpression
+6public class Functio : IExpression
 	{
 		private const int ArgNumber = 1;
 		private IExpression _expression;

@@ -11,22 +11,22 @@ namespace Interpreter
 	{
 		public static T Convert<T>(Value variable)
 		{
-			if (variable.Type == "int" && typeof(T) == typeof(int))
+			if (variable.Type == ValueTypes.Int && typeof(T) == typeof(int))
 			{
 				return (T)variable.Data;
 			}
 
-			if ((variable.Type == "string" || variable.Type == "path") && typeof(T) == typeof(string))
+			if ((variable.Type == ValueTypes.String || variable.Type == ValueTypes.Path) && typeof(T) == typeof(string))
 			{
 				return (T)variable.Data;
 			}
 
-			if (variable.Type == "bool" && typeof(T) == typeof(bool))
+			if (variable.Type == ValueTypes.Bool && typeof(T) == typeof(bool))
 			{
 				return (T)variable.Data;
 			}
 
-			if (variable.Type == "array" && typeof(T) == typeof(List<Value>))
+			if (variable.Type == ValueTypes.Array && typeof(T) == typeof(List<Value>))
 			{
 				return (T)variable.Data;
 			}

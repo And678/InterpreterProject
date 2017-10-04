@@ -9,13 +9,13 @@ namespace Interpreter.Lexer
 	static class LexerDefinitions
 	{
 		public static readonly string Terminator = ";";
-		public static readonly List<string> TypeIdentifiers = new List<string>()
+		public static readonly Dictionary<string, TokenType> TypeIdentifiers = new Dictionary<string, TokenType>()
 		{
-			"int",
-			"bool",
-			"path",
-			"string",
-			"array"
+			{"int", TokenType.IntIdentifier},
+			{"bool", TokenType.BoolIdentifier},
+			{"string", TokenType.StringIdentifier},
+			{"path", TokenType.PathIdentifier},
+			{"array", TokenType.ArrayIdentifier}
 		};
 		public static readonly string StringDelimiter = "\"";
 		public static readonly string PathDelimiter = "\'";

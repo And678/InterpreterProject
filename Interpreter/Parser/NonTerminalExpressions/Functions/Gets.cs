@@ -14,7 +14,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 		}
 		public Value Interpret(Context.Context context)
 		{
-			return new Value("string", context.GetInput());
+			return new Value(ValueTypes.String, context.GetInput());
 		}
 	}
 }

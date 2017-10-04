@@ -5,7 +5,7 @@ using Interpreter.Context;
 
 namespace Interpreter.Parser.NonTerminalExpressions.Functions
 {
-	class ToInt : IExpression
+	public class ToInt : IExpression
 	{
 		private const int ArgNumber = 1;
 		private IExpression _expression;
@@ -18,11 +18,11 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 		public Value Interpret(Context.Context context)
 		{
 			var result = _expression.Interpret(context);
-			if (result.Type == "string")
+			if (result.Type == ValueTypes.String)
 			{
 				try
 				{
-					return new Value("int", int.Parse(TypeHelpers.Convert<string>(result)));
+					return new Value(ValueTypes.Int, int.Parse(TypeHelpers.Convert<string>(result)));
 				}
 				catch (FormatException e)
 				{
@@ -33,13 +33,13 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 					throw new SyntaxException($"{TypeHelpers.Convert<string>(result)} is not a valid integer.");
 				}
 			}
-			if (result.Type == "bool")
+			if (result.Type == ValueTypes.Bool)
 			{
 				if (TypeHelpers.Convert<bool>(result))
 				{
-					return new Value("int", 1);
+					return new Value(ValueTypes.Int, 1);
 				}
-				return new Value("int", 0);
+				return new Value(ValueTypes.Int, 0);
 			}
 			throw new SyntaxException($"ToInt is not defined for {result.Type}");
 		}

@@ -7,7 +7,7 @@ using Interpreter.Context;
 
 namespace Interpreter.Parser.NonTerminalExpressions.Functions
 {
-	class ToStr : IExpression
+	public class ToStr : IExpression
 	{
 		private const int ArgNumber = 1;
 		private IExpression _expression;
@@ -20,17 +20,17 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 		public Value Interpret(Context.Context context)
 		{
 			var result = _expression.Interpret(context);
-			if (result.Type == "int")
+			if (result.Type == ValueTypes.Int)
 			{
-				return new Value("string", TypeHelpers.Convert<int>(result).ToString());
+				return new Value(ValueTypes.String, TypeHelpers.Convert<int>(result).ToString());
 			}
-			if (result.Type == "bool")
+			if (result.Type == ValueTypes.Bool)
 			{
-				return new Value("string", TypeHelpers.Convert<bool>(result) ? "true" : "false");
+				return new Value(ValueTypes.String, TypeHelpers.Convert<bool>(result) ? "true" : "false");
 			}
-			if (result.Type == "path")
+			if (result.Type == ValueTypes.Path)
 			{
-				return new Value("string", TypeHelpers.Convert<string>(result));
+				return new Value(ValueTypes.String, TypeHelpers.Convert<string>(result));
 			}
 			throw new SyntaxException($"ToStr is not defined for {result.Type}");
 		}

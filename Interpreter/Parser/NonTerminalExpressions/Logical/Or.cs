@@ -22,9 +22,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Logical
 			var leftResult = _left.Interpret(context);
 			var rightResult = _right.Interpret(context);
 
-			if (leftResult.Type == "bool" && rightResult.Type == "bool")
+			if (leftResult.Type == ValueTypes.Bool && rightResult.Type == ValueTypes.Bool)
 			{
-				return new Value("bool", TypeHelpers.Convert<bool>(leftResult) || TypeHelpers.Convert<bool>(rightResult));
+				return new Value(ValueTypes.Bool, TypeHelpers.Convert<bool>(leftResult) || TypeHelpers.Convert<bool>(rightResult));
 			}
 
 			throw new SyntaxException($"{leftResult.Type} and {rightResult.Type} don't have OR operation.");

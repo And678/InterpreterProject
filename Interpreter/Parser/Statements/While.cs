@@ -19,7 +19,7 @@ namespace Interpreter.Parser.Statements
 		public void Execute(Context.Context context)
 		{
 			var result = _expression.Interpret(context);
-			if (result.Type == "bool")
+			if (result.Type == ValueTypes.Bool)
 			{
 				while (TypeHelpers.Convert<bool>(result))
 				{

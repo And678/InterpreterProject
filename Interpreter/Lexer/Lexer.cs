@@ -112,16 +112,10 @@ namespace Interpreter.Lexer
 			{
 				return new Token(TokenType.If);
 			}
-
-			foreach (var type in LexerDefinitions.TypeIdentifiers)
+			var typeId = LexerDefinitions.TypeIdentifiers.FirstOrDefault(pair => pair.Key == literalString.ToString());
+			if (typeId.Key != null)
 			{
-				if (literalString == type)
-				{
-					return new Token(
-						TokenType.TypeIdentifier,
-						type
-					);
-				}
+				return new Token(typeId.Value);
 			}
 
 			foreach (var type in LexerDefinitions.BoolValues)
@@ -139,6 +133,7 @@ namespace Interpreter.Lexer
 				literalString
 			);
 		}
+
 
 		private Token ParseNumber()
 		{

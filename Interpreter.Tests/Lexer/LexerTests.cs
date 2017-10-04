@@ -5,16 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter.Tests
+namespace Interpreter.Lexer.Tests
 {
 	[TestFixture]
 	public class Lexer
 	{
+		/*
 		[Test]
-		public void TestMethod()
+		public void GetNextToken_()
 		{
 
-			Assert.Pass("Your first passing test");
+		}
+		*/
+		[Test]
+		public void GetNextToken_Empty_ReturnsEOF()
+		{
+			var subject = new Lexer();
+			Assert.Pass();
 		}
 	}
 }
