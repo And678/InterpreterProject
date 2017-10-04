@@ -17,10 +17,10 @@ namespace Interpreter.Parser.NonTerminalExpressions.Logical
 			_right = right;
 		}
 
-		public Value Intrerpret(Context.Context context)
+		public Value Interpret(Context.Context context)
 		{
-			var leftResult = _left.Intrerpret(context);
-			var rightResult = _right.Intrerpret(context);
+			var leftResult = _left.Interpret(context);
+			var rightResult = _right.Interpret(context);
 
 			if (leftResult.Type == "bool" && rightResult.Type == "bool")
 			{

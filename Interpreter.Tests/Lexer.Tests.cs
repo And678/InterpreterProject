@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Interpreter.Tests
 {
 	[TestFixture]
-	public class TestClass
+	public class Lexer
 	{
 		[Test]
 		public void TestMethod()
 		{
-			
+
 			Assert.Pass("Your first passing test");
 		}
 	}

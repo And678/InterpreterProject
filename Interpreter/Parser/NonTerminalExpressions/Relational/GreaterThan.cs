@@ -18,10 +18,10 @@ namespace Interpreter.Parser.NonTerminalExpressions.Relational
 			_right = right;
 		}
 
-		public Value Intrerpret(Context.Context context)
+		public Value Interpret(Context.Context context)
 		{
-			var leftResult = _left.Intrerpret(context);
-			var rightResult = _right.Intrerpret(context);
+			var leftResult = _left.Interpret(context);
+			var rightResult = _right.Interpret(context);
 			if (leftResult.Type == "int" && rightResult.Type == "int")
 			{
 				return new Value("bool", TypeHelpers.Convert<int>(leftResult) > TypeHelpers.Convert<int>(rightResult));

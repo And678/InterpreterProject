@@ -66,6 +66,8 @@
     <Compile Include="Parser\NonTerminalExpressions\Additive\Subtract.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Equality\Equals.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Equality\NotEquals.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\Array\ArrayAdd.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\Array\ArrayLength.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\Echo.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\GetFileSize.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\Gets.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Parser\NonTerminalExpressions\Relational\GreaterThan.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Relational\LessThan.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Unary\Not.cs" />
+    <Compile Include="Parser\TerminalExpressions\ArrayAccess.cs" />
     <Compile Include="Parser\TerminalExpressions\Literal.cs" />
     <Compile Include="Parser\TerminalExpressions\VariableExpr.cs" />
     <Compile Include="Parser\Statements\Assignment.cs" />

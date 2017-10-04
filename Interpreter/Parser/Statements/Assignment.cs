@@ -18,7 +18,7 @@ namespace Interpreter.Parser.Statements
 		public void Execute(Context.Context context)
 		{
 			var varib = context.LookUpVariable(_identifier);
-			var result = _rvalue.Intrerpret(context);
+			var result = _rvalue.Interpret(context);
 			if (varib.Type == result.Type)
 				varib.SetValue(result.Data);
 			else

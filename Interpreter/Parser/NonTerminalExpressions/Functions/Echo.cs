@@ -16,9 +16,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 				throw new SyntaxException($"Echo accepts {ArgNumber} arguments.");
 			_expression = expr.First();
 		}
-		public Value Intrerpret(Context.Context context)
+		public Value Interpret(Context.Context context)
 		{
-			var result = _expression.Intrerpret(context);
+			var result = _expression.Interpret(context);
 			if (result.Type == "int")
 			{
 				context.AddToOutput(TypeHelpers.Convert<int>(result));

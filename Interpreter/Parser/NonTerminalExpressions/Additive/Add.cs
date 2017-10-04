@@ -11,10 +11,10 @@ namespace Interpreter.Parser.NonTerminalExpressions.Additive
 			_left = left;
 			_right = right;
 		}
-		public Value Intrerpret(Context.Context context)
+		public Value Interpret(Context.Context context)
 		{
-			var leftResult = _left.Intrerpret(context);
-			var rightResult = _right.Intrerpret(context);
+			var leftResult = _left.Interpret(context);
+			var rightResult = _right.Interpret(context);
 			if (leftResult.Type == "string" && rightResult.Type == "string")
 			{
 				return AddStrings(leftResult, rightResult);

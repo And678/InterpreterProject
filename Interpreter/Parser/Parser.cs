@@ -7,6 +7,7 @@ using Interpreter.Lexer;
 using Interpreter.Parser.NonTerminalExpressions.Additive;
 using Interpreter.Parser.NonTerminalExpressions.Equality;
 using Interpreter.Parser.NonTerminalExpressions.Functions;
+using Interpreter.Parser.NonTerminalExpressions.Functions.Array;
 using Interpreter.Parser.NonTerminalExpressions.Logical;
 using Interpreter.Parser.NonTerminalExpressions.Multiplicative;
 using Interpreter.Parser.NonTerminalExpressions.Relational;
@@ -57,7 +58,7 @@ namespace Interpreter.Parser
 		{
 			if (_currentToken.Type != type)
 			{
-				throw new SyntaxException($"{_currentToken} is not of type {type}");
+				throw new SyntaxException($"{_currentToken} ({_currentToken.Type}) is not of type {type}");
 			}
 			return Take();
 		}
@@ -92,7 +93,7 @@ namespace Interpreter.Parser
 			{
 				return BuildWhile();
 			}
-			if (_currentToken.Type == TokenType.LeftSquareBracket)
+			if (_currentToken.Type == TokenType.LeftSquigglyBracket)
 			{
 				return BuildScope();
 			}
@@ -147,12 +148,12 @@ namespace Interpreter.Parser
 		private IStatement BuildScope()
 		{
 			List<IStatement> statements = new List<IStatement>();
-			Take(TokenType.LeftSquareBracket);
-			while (_currentToken.Type != TokenType.RightSquareBracket)
+			Take(TokenType.LeftSquigglyBracket);
+			while (_currentToken.Type != TokenType.RightSquigglyBracket)
 			{
 				statements.Add(BuildStatement());
 			}
-			Take(TokenType.RightSquareBracket);
+			Take(TokenType.RightSquigglyBracket);
 			return new Scope(statements);
 		}
 
@@ -247,8 +248,11 @@ namespace Interpreter.Parser
 				{
 					return ParseFunction();
 				}
-				var tok = Take();
-				return new VariableExpr(tok.Value);
+				if (_nextToken.Type == TokenType.LeftSquareBracket)
+				{
+					return ParseArrayAccess();
+				}
+				return ParseVariableExpr();
 
 			}
 			if (_currentToken.Type == TokenType.StringLiteral ||
@@ -256,8 +260,7 @@ namespace Interpreter.Parser
 				_currentToken.Type == TokenType.PathLiteral ||
 				_currentToken.Type == TokenType.BoolLiteral)
 			{
-				var tok = Take();
-				return new Literal(tok.Type, tok.Value);
+				return ParseLiteral();
 			}
 			throw new SyntaxException("Unknown expression");
 		}
@@ -329,9 +332,33 @@ namespace Interpreter.Parser
 					return new ToInt(exprList);
 				case "getfilesize":
 					return new GetFileSize(exprList);
+				case "arrayadd":
+					return new ArrayAdd(exprList);
+				case "arraylength":
+					return new ArrayLength(exprList);
 				default:
 					throw new SyntaxException($"Function {identifier.Value} does not exist.");
 			}
+		}
+
+		private IExpression ParseVariableExpr()
+		{
+			var tok = Take(TokenType.Identifier);
+			return new VariableExpr(tok.Value);
+		}
+
+		private IExpression ParseLiteral()
+		{
+			var tok = Take();
+			return new Literal(tok.Type, tok.Value);
+		}
+		private IExpression ParseArrayAccess()
+		{
+			var array = ParseVariableExpr();
+			Take(TokenType.LeftSquareBracket);
+			var expr = ParseExpression();
+			Take(TokenType.RightSquareBracket);
+			return new ArrayAccess(expr, array);
 		}
 		#region IsTokenType
 		private bool IsAdditive()

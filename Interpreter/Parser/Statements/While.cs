@@ -18,13 +18,13 @@ namespace Interpreter.Parser.Statements
 		}
 		public void Execute(Context.Context context)
 		{
-			var result = _expression.Intrerpret(context);
+			var result = _expression.Interpret(context);
 			if (result.Type == "bool")
 			{
 				while (TypeHelpers.Convert<bool>(result))
 				{
 					_statement.Execute(context);
-					result = _expression.Intrerpret(context);
+					result = _expression.Interpret(context);
 				}
 			}
 			else

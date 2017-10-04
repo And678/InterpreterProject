@@ -12,7 +12,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			if (expr.Count != ArgNumber)
 				throw new SyntaxException($"Gets accepts {ArgNumber} arguments.");
 		}
-		public Value Intrerpret(Context.Context context)
+		public Value Interpret(Context.Context context)
 		{
 			return new Value("string", context.GetInput());
 		}

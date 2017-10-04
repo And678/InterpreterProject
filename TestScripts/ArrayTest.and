@@ -1,0 +1,13 @@
+echo("Enter strings one by one. Enter exit to exit.");
+array tested;
+string str;
+while (str != "exit") {
+	str = gets();
+	ArrayAdd(tested, str);
+}
+int len;
+len = ArrayLength(tested) - 1;
+while (len > -1) {
+	echo(tested[len]);
+	len = len - 1;
+}

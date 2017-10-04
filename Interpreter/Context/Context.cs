@@ -36,6 +36,10 @@ namespace Interpreter.Context
 		{
 			if (_variables.ContainsKey(name))
 			{
+				if (_variables[name].Type == "array")	//DEBUG
+				{
+					
+				}
 				return _variables[name];
 			}
 			throw new SyntaxException("Variable does not exist");
@@ -45,7 +49,14 @@ namespace Interpreter.Context
 		{
 			if (!_variables.ContainsKey(name))
 			{
-				_variables.Add(name, new Value(type));
+				if (type == "array")
+				{
+					_variables.Add(name, new Value(type, new List<Value>()));
+				}
+				else
+				{
+					_variables.Add(name, new Value(type));
+				}
 				return;
 			}
 			throw new SyntaxException("Variable already exists");

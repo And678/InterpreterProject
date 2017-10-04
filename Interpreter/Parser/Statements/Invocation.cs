@@ -16,7 +16,7 @@ namespace Interpreter.Parser.Statements
 		}
 		public void Execute(Context.Context context)
 		{
-			_functionExpression.Intrerpret(context);
+			_functionExpression.Interpret(context);
 		}
 	}
 }

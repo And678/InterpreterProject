@@ -11,9 +11,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Unary
 			_expr = expr;
 		}
 
-		public Value Intrerpret(Context.Context context)
+		public Value Interpret(Context.Context context)
 		{
-			var result = _expr.Intrerpret(context);
+			var result = _expr.Interpret(context);
 
 			if (result.Type == "bool")
 			{

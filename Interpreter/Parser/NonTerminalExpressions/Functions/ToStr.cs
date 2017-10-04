@@ -17,9 +17,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 				throw new SyntaxException($"ToStr accepts {ArgNumber} arguments.");
 			_expression = expr.First();
 		}
-		public Value Intrerpret(Context.Context context)
+		public Value Interpret(Context.Context context)
 		{
-			var result = _expression.Intrerpret(context);
+			var result = _expression.Interpret(context);
 			if (result.Type == "int")
 			{
 				return new Value("string", TypeHelpers.Convert<int>(result).ToString());

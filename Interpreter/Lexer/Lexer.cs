@@ -49,11 +49,11 @@ namespace Interpreter.Lexer
 			{
 				return ParseIdentifier();
 			}
-			if (Char.IsDigit(current) || current == '-')
+			if (Char.IsDigit(current) || (current == '-' && Char.IsDigit(_code[_currentIndex + 1])))
 			{
 				return ParseNumber();
 			}
-			if (LexerDefinitions.OperatorSymbols.Contains(current.ToString()))		//TODO: fix this
+			if (LexerDefinitions.OperatorSymbols.Contains(current.ToString()))
 			{
 				return ParseSymbols();
 			}

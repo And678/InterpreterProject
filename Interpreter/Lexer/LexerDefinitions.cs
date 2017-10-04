@@ -9,13 +9,13 @@ namespace Interpreter.Lexer
 	static class LexerDefinitions
 	{
 		public static readonly string Terminator = ";";
-
 		public static readonly List<string> TypeIdentifiers = new List<string>()
 		{
 			"int",
 			"bool",
 			"path",
-			"string"
+			"string",
+			"array"
 		};
 		public static readonly string StringDelimiter = "\"";
 		public static readonly string PathDelimiter = "\'";
@@ -36,8 +36,12 @@ namespace Interpreter.Lexer
 				{ TokenType.LeftBracket, "("},
 				{ TokenType.RightBracket, ")"},
 
-				{ TokenType.LeftSquareBracket, "{"},
-				{ TokenType.RightSquareBracket, "}"},
+				{ TokenType.LeftSquareBracket, "["},
+				{ TokenType.RightSquareBracket, "]"},
+
+				{ TokenType.LeftSquigglyBracket, "{"},
+				{ TokenType.RightSquigglyBracket, "}"},
+
 				{ TokenType.Plus, "+"},
 				{ TokenType.Minus, "-"},
 				{ TokenType.Multiply, "*"},

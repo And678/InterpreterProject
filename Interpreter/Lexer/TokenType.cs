@@ -23,6 +23,8 @@ namespace Interpreter.Lexer
 		RightBracket,
 		LeftSquareBracket,
 		RightSquareBracket,
+		LeftSquigglyBracket,
+		RightSquigglyBracket,
 
 		Comma,
 

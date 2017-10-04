@@ -26,6 +26,10 @@ namespace Interpreter
 				return (T)variable.Data;
 			}
 
+			if (variable.Type == "array" && typeof(T) == typeof(List<Value>))
+			{
+				return (T)variable.Data;
+			}
 			throw new InvalidCastException($"Cannot cast {variable.Data.ToString()} to {typeof(T).ToString()}.");
 		}
 	}

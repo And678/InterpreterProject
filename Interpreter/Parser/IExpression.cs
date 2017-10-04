@@ -10,6 +10,6 @@ namespace Interpreter.Parser
 {
 	public interface IExpression
 	{
-		Value Intrerpret(Context.Context context);
+		Value Interpret(Context.Context context);
 	}
 }
