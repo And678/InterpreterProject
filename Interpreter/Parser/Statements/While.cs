@@ -16,7 +16,7 @@ namespace Interpreter.Parser.Statements
 			_expression = expression;
 			_statement = statement;
 		}
-		public void Execute(Context.Context context)
+		public void Execute(Context.IContext context)
 		{
 			var result = _expression.Interpret(context);
 			if (result.Type == ValueTypes.Bool)

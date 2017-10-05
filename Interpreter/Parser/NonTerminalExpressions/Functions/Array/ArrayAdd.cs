@@ -19,7 +19,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions.Array
 			_expr = expr[1];
 		}
 
-		public Value Interpret(Context.Context context)
+		public Value Interpret(Context.IContext context)
 		{
 			var result1 = _array.Interpret(context);
 			var result2 = _expr.Interpret(context);

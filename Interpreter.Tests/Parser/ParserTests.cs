@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interpreter.Lexer;
+using Interpreter.Parser.Statements;
+using Moq;
 
 namespace Interpreter.Parser.Tests
 {
@@ -12,15 +15,47 @@ namespace Interpreter.Parser.Tests
 	public class ParserTests
 	{
 		[Test()]
-		public void Parser_()
+		public void BuildStatement_DeclarationTokens_ReturnsDeclaration()
 		{
-			Assert.Fail();
+			var mock = new Mock<Lexer.ILexer>();
+			mock.SetupSequence(lexer => lexer.GetNextToken())
+				.Returns(new Token(TokenType.IntIdentifier))
+				.Returns(new Token(TokenType.Identifier, "hi"))
+				.Returns(new Token(TokenType.Terminator))
+				.Returns(new Token(TokenType.EOF));
+
+			Parser parser = new Parser(mock.Object);
+
+			Assert.That(parser.BuildStatement(), Is.InstanceOf<Declaration>());
 		}
 
 		[Test()]
-		public void BuildStatement_()
+		public void BuildStatement_RandomTokens_ThrowsSyntaxException()
 		{
-			Assert.Fail();
+			var mock = new Mock<Lexer.ILexer>();
+			mock.SetupSequence(lexer => lexer.GetNextToken())
+				.Returns(new Token(TokenType.RightBracket))
+				.Returns(new Token(TokenType.StringLiteral, "hi"))
+				.Returns(new Token(TokenType.Assign))
+				.Returns(new Token(TokenType.Terminator));
+
+			Parser parser = new Parser(mock.Object);
+
+			Assert.That(() => parser.BuildStatement(), Throws.InstanceOf<SyntaxException>());
+		}
+
+		[Test()]
+		public void BuildStatement_DeclarationTokensNoTerminator_ThrowsSyntaxException()
+		{
+			var mock = new Mock<Lexer.ILexer>();
+			mock.SetupSequence(lexer => lexer.GetNextToken())
+				.Returns(new Token(TokenType.IntIdentifier))
+				.Returns(new Token(TokenType.Identifier, "hi"))
+				.Returns(new Token(TokenType.EOF));
+
+			Parser parser = new Parser(mock.Object);
+
+			Assert.That(() => parser.BuildStatement(), Throws.InstanceOf<SyntaxException>());
 		}
 	}
 }

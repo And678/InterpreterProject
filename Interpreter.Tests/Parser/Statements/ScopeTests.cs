@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interpreter.Context;
+using Moq;
 
 namespace Interpreter.Parser.Statements.Tests
 {
@@ -12,15 +14,27 @@ namespace Interpreter.Parser.Statements.Tests
 	public class ScopeTests
 	{
 		[Test()]
-		public void Scope_()
+		public void Execute_HasStatements_ExecutesThem()
 		{
-			Assert.Fail();
-		}
+			MockRepository mocks = new MockRepository(MockBehavior.Strict);
+			Mock<IStatement>[] arrayMocks =
+			{
+				mocks.Create<IStatement>(),
+				mocks.Create<IStatement>(),
+				mocks.Create<IStatement>(),
+				mocks.Create<IStatement>()
+			};
+			var list = new List<IStatement>();
+			foreach (var arrayMock in arrayMocks)
+			{
+				arrayMock.Setup(m => m.Execute(It.IsAny<IContext>()));
+				list.Add(arrayMock.Object);
+			}
 
-		[Test()]
-		public void Execute_()
-		{
-			Assert.Fail();
+			var scp = new Scope(list);
+			scp.Execute(new Mock<IContext>().Object);
+			Assert.That(() => mocks.VerifyAll(), Throws.Nothing);
+
 		}
 	}
 }

@@ -1,12 +1,32 @@
-﻿using Interpreter.Context;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Interpreter.Context;
 
 namespace Interpreter.Parser.NonTerminalExpressions.Functions
 {
 	public class FileMove : IExpression
 	{
-		public Value Interpret(Context.Context context)
+		private const int ArgNumber = 2;
+		private IExpression _from;
+		private IExpression _to;
+		public FileMove(IList<IExpression> expr)
 		{
-			throw new System.NotImplementedException();
+			if (expr.Count != ArgNumber)
+				throw new SyntaxException($"FileMove accepts {ArgNumber} arguments.");
+			_from = expr.First();
+			_to = expr[1];
+		}
+		public Value Interpret(Context.IContext context)
+		{
+			var from = _from.Interpret(context);
+			var to = _to.Interpret(context);
+			if (from.Type == ValueTypes.Path && to.Type == ValueTypes.Path)
+			{
+				File.Move(TypeHelpers.Convert<string>(from), 
+							TypeHelpers.Convert<string>(to));
+			}
+			throw new SyntaxException($"FileMove is not defined for {from.Type}, {to.Type}.");
 		}
 	}
 }

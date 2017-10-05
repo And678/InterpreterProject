@@ -13,7 +13,7 @@ namespace Interpreter.Parser.TerminalExpressions
 			_index = index;
 			_array = array;
 		}
-		public Value Interpret(Context.Context context)
+		public Value Interpret(Context.IContext context)
 		{
 			var arr = _array.Interpret(context);
 			var ind = _index.Interpret(context);

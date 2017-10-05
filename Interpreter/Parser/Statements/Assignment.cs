@@ -15,7 +15,7 @@ namespace Interpreter.Parser.Statements
 			_rvalue = expression;
 			_identifier = identifier;
 		}	
-		public void Execute(Context.Context context)
+		public void Execute(Context.IContext context)
 		{
 			var varib = context.LookUpVariable(_identifier);
 			var result = _rvalue.Interpret(context);

@@ -7,7 +7,7 @@ using Interpreter.Parser;
 
 namespace Interpreter.Lexer
 {
-	public class Lexer
+	public class Lexer : ILexer
 	{
 		private int _currentIndex = 0;
 
@@ -88,18 +88,13 @@ namespace Interpreter.Lexer
 		private Token ParseIdentifier()
 		{
 			StringBuilder newLiteral = new StringBuilder();
-			try
+
+			while (_currentIndex < _code.Length && Char.IsLetter(_code[_currentIndex]))
 			{
-				while (Char.IsLetter(_code[_currentIndex]))
-				{
-					newLiteral.Append(_code[_currentIndex]);
-					_currentIndex++;
-				}
+				newLiteral.Append(_code[_currentIndex]);
+				_currentIndex++;
 			}
-			catch (IndexOutOfRangeException)
-			{
-				throw new SyntaxException("Missing ;");
-			}
+			
 			string literalString = newLiteral.ToString().ToLower();
 
 
@@ -138,23 +133,17 @@ namespace Interpreter.Lexer
 		private Token ParseNumber()
 		{
 			StringBuilder newLiteral = new StringBuilder();
-			try
+			if (_code[_currentIndex] == '-')
 			{
-				if (_code[_currentIndex] == '-')
-				{
-					newLiteral.Append('-');
-					_currentIndex++;
-				}
-				while (Char.IsDigit(_code[_currentIndex]))
-				{
-					newLiteral.Append(_code[_currentIndex]);
-					_currentIndex++;
-				}
+				newLiteral.Append('-');
+				_currentIndex++;
 			}
-			catch (IndexOutOfRangeException)
+			while (_currentIndex < _code.Length && Char.IsDigit(_code[_currentIndex]))
 			{
-				throw new SyntaxException("Missing ;");
+				newLiteral.Append(_code[_currentIndex]);
+				_currentIndex++;
 			}
+			
 			return new Token(
 				TokenType.IntegerLiteral,
 				newLiteral.ToString()
@@ -174,7 +163,7 @@ namespace Interpreter.Lexer
 					if (twoSymbol == token.Value)
 					{
 						_currentIndex += 2;
-						return new Token(token.Key, token.Value);
+						return new Token(token.Key);
 					}
 				}
 			foreach (var token in LexerDefinitions.Operators)
@@ -182,7 +171,7 @@ namespace Interpreter.Lexer
 				if (oneSymbol == token.Value)
 				{
 					_currentIndex++;
-					return new Token(token.Key, token.Value);
+					return new Token(token.Key);
 				}
 			}
 			throw new SyntaxException("Unknown operator");

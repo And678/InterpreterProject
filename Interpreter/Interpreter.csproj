@@ -54,7 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\IContext.cs" />
     <Compile Include="Context\IInputManager.cs" />
+    <Compile Include="Lexer\ILexer.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="FileHelpers.cs" />
     <Compile Include="Lexer\Lexer.cs" />
@@ -122,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Parser\NonTerminalExpressions\Functions\funcTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

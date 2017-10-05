@@ -8,6 +8,6 @@ namespace Interpreter.Parser
 {
 	public interface IStatement
 	{
-		void Execute(Context.Context context);
+		void Execute(Context.IContext context);
 	}
 }

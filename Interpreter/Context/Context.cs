@@ -8,7 +8,7 @@ using Interpreter.Parser;
 
 namespace Interpreter.Context
 {
-	public class Context
+	public class Context : IContext
 	{
 		private Dictionary<string, Value> _variables;
 
@@ -83,10 +83,6 @@ namespace Interpreter.Context
 
 		public string GetInput()
 		{
-			if (_inputManager == null)
-			{
-				throw new ApplicationException("Input manager is not connected");
-			}
 			return _inputManager.GetLineFromUser();
 		}
 	}

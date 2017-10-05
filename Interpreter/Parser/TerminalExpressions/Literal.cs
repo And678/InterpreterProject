@@ -14,7 +14,7 @@ namespace Interpreter.Parser.TerminalExpressions
 			_value = value;
 			_type = type;
 		}
-		public Value Interpret(Context.Context context)
+		public Value Interpret(Context.IContext context)
 		{
 			if (_type == TokenType.BoolLiteral)
 			{

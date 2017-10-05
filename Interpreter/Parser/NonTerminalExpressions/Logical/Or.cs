@@ -17,7 +17,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Logical
 			_right = right;
 		}
 
-		public Value Interpret(Context.Context context)
+		public Value Interpret(Context.IContext context)
 		{
 			var leftResult = _left.Interpret(context);
 			var rightResult = _right.Interpret(context);

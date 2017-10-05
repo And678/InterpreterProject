@@ -11,7 +11,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Unary
 			_expr = expr;
 		}
 
-		public Value Interpret(Context.Context context)
+		public Value Interpret(Context.IContext context)
 		{
 			var result = _expr.Interpret(context);
 

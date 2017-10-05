@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Interpreter.Tests
 {
 	[TestFixture]
-	public class FileHelpers
+	public class FileHelpersTests
 	{
 		[Test]
 		public void IsValidPath_GoodPath_returnsTrue()

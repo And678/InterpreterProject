@@ -19,12 +19,12 @@ namespace Interpreter.Parser
 {
 	public class Parser
 	{
-		private Lexer.Lexer _lexer;
+		private Lexer.ILexer _lexer;
 
 		private Token _currentToken;
 		private Token _nextToken;
 
-		public Parser(Lexer.Lexer lexer)
+		public Parser(Lexer.ILexer lexer)
 		{
 			_lexer = lexer;
 			Next();
@@ -347,8 +347,8 @@ namespace Interpreter.Parser
 					return new Gets(exprList);
 				case "toint":
 					return new ToInt(exprList);
-				case "getfilesize":
-					return new GetFileSize(exprList);
+				case "filegetsize":
+					return new FileGetSize(exprList);
 				case "arrayadd":
 					return new ArrayAdd(exprList);
 				case "arraylength":

@@ -16,7 +16,7 @@ namespace Interpreter.Parser.TerminalExpressions
 		{
 			return _name;
 		}
-		public Value Interpret(Context.Context context)
+		public Value Interpret(Context.IContext context)
 		{
 			var varib = context.LookUpVariable(_name);
 			return varib;

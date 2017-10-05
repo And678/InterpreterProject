@@ -16,7 +16,7 @@ namespace Interpreter.Parser.Statements
 			_type = type;
 			_identifier = identifier;
 		}
-		public void Execute(Context.Context context)
+		public void Execute(Context.IContext context)
 		{
 			context.AddVariable(_type, _identifier);
 		}

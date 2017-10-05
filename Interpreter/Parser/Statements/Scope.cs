@@ -14,7 +14,7 @@ namespace Interpreter.Parser.Statements
 		{
 			_statements = statements;
 		}
-		public void Execute(Context.Context context)
+		public void Execute(Context.IContext context)
 		{
 			foreach (var stmt in _statements)
 			{

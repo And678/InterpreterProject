@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interpreter.Context;
+using Moq;
 
 namespace Interpreter.Parser.Statements.Tests
 {
@@ -12,21 +14,15 @@ namespace Interpreter.Parser.Statements.Tests
 	public class DeclarationTests
 	{
 		[Test()]
-		public void Declaration_()
+		public void Execute_AddVariable_AddsToContext()
 		{
-			Assert.Fail();
-		}
+			bool wasCalled = false;
+			var context = new Mock<IContext>();
+			context.Setup(c => c.AddVariable(ValueTypes.Bool, "tested")).Callback(() => wasCalled = true);
 
-		[Test()]
-		public void Execute_()
-		{
-			Assert.Fail();
-		}
-
-		[Test()]
-		public void ToString_()
-		{
-			Assert.Fail();
+			var decl = new Declaration(ValueTypes.Bool, "tested");
+			decl.Execute(context.Object);
+			Assert.That(wasCalled);
 		}
 	}
 }

@@ -1,4 +1,4 @@
 path tested;
 tested = 'globals.and';
-echo(toStr(tested) + " has " + toStr(getFileSize(tested)) + " bytes.");
-echo("This file has " + toStr(getFileSize(thisfile)) + " bytes.");
+echo(toStr(tested) + " has " + toStr(FileGetSize(tested)) + " bytes.");
+echo("This file has " + toStr(FileGetSize(thisfile)) + " bytes.");

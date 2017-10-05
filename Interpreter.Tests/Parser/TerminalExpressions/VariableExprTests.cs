@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interpreter.Context;
+using Moq;
 
 namespace Interpreter.Parser.TerminalExpressions.Tests
 {
@@ -12,21 +14,22 @@ namespace Interpreter.Parser.TerminalExpressions.Tests
 	public class VariableExprTests
 	{
 		[Test()]
-		public void VariableExpr_()
+		public void GetName_Andriy_ReturnsAndriy()
 		{
-			Assert.Fail();
+			string name = "Andriy";
+			VariableExpr varExpr = new VariableExpr(name);
+			Assert.That(varExpr.GetName(), Is.EqualTo(name));
 		}
 
 		[Test()]
-		public void GetName_()
+		public void Interpret_VariableInContext_ReturnsVariable()
 		{
-			Assert.Fail();
-		}
+			var mock = new Mock<Context.IContext>();
+			var variable = new Value(ValueTypes.Bool, true);
+			mock.Setup(context => context.LookUpVariable("andriy")).Returns(variable);
+			var subject = new VariableExpr("andriy");
 
-		[Test()]
-		public void Interpret_()
-		{
-			Assert.Fail();
+			Assert.That(subject.Interpret(mock.Object), Is.EqualTo(variable));
 		}
 	}
 }

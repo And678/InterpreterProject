@@ -15,7 +15,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 				throw new SyntaxException($"GetFileSize accepts {ArgNumber} arguments.");
 			_expression = expr.First();
 		}
-		public Value Interpret(Context.Context context)
+		public Value Interpret(Context.IContext context)
 		{
 			var result = _expression.Interpret(context);
 			if (result.Type == ValueTypes.Path)

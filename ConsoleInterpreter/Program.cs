@@ -26,7 +26,7 @@ namespace ConsoleInterpreter
 				File.ReadAllText(args[0]);
 				Lexer lex = new Lexer(File.ReadAllText(args[0]));
 				Parser parser = new Parser(lex);
-				Context context = new Context(new ConsoleInputManager(), args[0]);
+				IContext context = new Context(new ConsoleInputManager(), args[0]);
 				try
 				{
 					IStatement cur = parser.BuildStatement();
