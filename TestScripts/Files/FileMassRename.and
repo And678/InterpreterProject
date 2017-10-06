@@ -1,0 +1,10 @@
+array paths;
+paths = FileGetList(thisdir);
+int len;
+len = ArrayLength(paths) - 1;
+string str;
+while (len > -1) {
+	str = "test" + FileGetName(paths[len]);
+	FileMove(paths[len], toPath(str));
+	len = len - 1;
+}

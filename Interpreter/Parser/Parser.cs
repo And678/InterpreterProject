@@ -415,6 +415,8 @@ namespace Interpreter.Parser
 					return new Echo(exprList);
 				case "gets":
 					return new Gets(exprList);
+				case "substring":
+					return new SubString(exprList);
 
 				default:
 					return null;

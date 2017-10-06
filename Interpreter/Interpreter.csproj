@@ -61,6 +61,7 @@
     <Compile Include="Lexer\ILexer.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\CustomProcedure.cs" />
     <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileGetName.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\SubString.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="FileHelpers.cs" />
     <Compile Include="Lexer\Lexer.cs" />
