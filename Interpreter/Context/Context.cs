@@ -13,7 +13,16 @@ namespace Interpreter.Context
 		private Dictionary<string, Value> _variables;
 
 		private IInputManager _inputManager;
+		private IFunctionManager _functionManager;
 
+		public Context(IFunctionManager functionManager, IInputManager myInputManager, string myPath)
+		{
+			_variables = new Dictionary<string, Value>();
+			_inputManager = myInputManager;
+			_functionManager = functionManager;
+			AddVariable(ValueTypes.Path, "thisfile", myPath);
+			AddVariable(ValueTypes.Path, "thisdir", Path.GetDirectoryName(myPath));
+		}
 		public Context(IInputManager myInputManager, string myPath)
 		{
 			_variables = new Dictionary<string, Value>();
@@ -39,6 +48,16 @@ namespace Interpreter.Context
 				return _variables[name];
 			}
 			throw new SyntaxException("Variable does not exist");
+		}
+
+		public IExpression CreateFunction(string funcName, IList<IExpression> exprList)
+		{
+			return _functionManager.CreateFunction(funcName, exprList);
+		}
+
+		public void AddFunction(string funcName, IList<IStatement> exprList)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void AddVariable(ValueTypes type, string name)

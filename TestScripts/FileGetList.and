@@ -1,0 +1,11 @@
+array subject;
+subject = fileGetListInDir(thisdir);
+
+int len;
+len = arrayLength(subject) - 1;
+
+while (len > -1) 
+{
+	echo(toStr(subject[len]));
+	len = len - 1;
+}

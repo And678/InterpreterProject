@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interpreter.Context;
 using Interpreter.Lexer;
 using Interpreter.Parser.NonTerminalExpressions.Additive;
 using Interpreter.Parser.NonTerminalExpressions.Equality;
@@ -337,18 +338,17 @@ namespace Interpreter.Parser
 				}
 			}
 			Take(TokenType.RightBracket);
-			switch (identifier.Value)
+
+			var result = LookUpStandartFunction(identifier.Value, exprList) ??
+			             new CustomFunction(identifier.Value, exprList);
+			return result;
+		}
+
+		private IExpression LookUpStandartFunction(string funcName, IList<IExpression> exprList)
+		{
+			switch (funcName)
 			{
-				case "echo":
-					return new Echo(exprList);
-				case "tostr":
-					return new ToStr(exprList);
-				case "gets":
-					return new Gets(exprList);
-				case "toint":
-					return new ToInt(exprList);
-				case "filegetsize":
-					return new FileGetSize(exprList);
+				//Array
 				case "arrayadd":
 					return new ArrayAdd(exprList);
 				case "arraylength":
@@ -357,8 +357,43 @@ namespace Interpreter.Parser
 					return new ArrayRemove(exprList);
 				case "arrayfind":
 					return new ArrayFind(exprList);
+				//File
+				case "filecompare":
+					return new FileCompare(exprList);
+				case "filecreate":
+					return new FileCreate(exprList);
+				case "filedelete":
+					return new FileDelete(exprList);
+				case "fileexists":
+					return new FileExists(exprList);
+				case "filegetlist":
+				case "filegetlistindir":
+					return new FileGetListInDir(exprList);
+				case "filegetsize":
+					return new FileGetSize(exprList);
+				case "filematchesmask":
+					return new FileMatchesMask(exprList);
+				case "filemkdir":
+					return new FileMkDir(exprList);
+				case "filemove":
+					return new FileMove(exprList);
+				//Casts
+				case "toint":
+					return new ToInt(exprList);
+				case "tostr":
+					return new ToStr(exprList);
+				case "topath":
+					return new ToPath(exprList);
+				case "tobool":
+					return new ToBool(exprList);
+				//Mics
+				case "echo":
+					return new Echo(exprList);
+				case "gets":
+					return new Gets(exprList);
+
 				default:
-					throw new SyntaxException($"Function {identifier.Value} does not exist.");
+					return null;
 			}
 		}
 

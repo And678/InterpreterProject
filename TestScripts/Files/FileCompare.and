@@ -1,0 +1,6 @@
+bool result;
+result = FileCompare('oldFile.txt', 'newFile.txt');
+echo("(newFile.txt == oldFile.txt) == " + toStr(result));
+
+result = FileCompare(thisfile, 'newFile.txt');
+echo("(" + toStr(thisfile) + " == oldFile.txt) == " + toStr(result));

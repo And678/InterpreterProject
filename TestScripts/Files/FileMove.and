@@ -1,0 +1,2 @@
+FileMove('newFile.txt', 'oldFile.txt');
+echo("newFile.txt was renamed to oldFile.txt");

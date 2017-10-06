@@ -54,9 +54,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\FunctionManager.cs" />
     <Compile Include="Context\IContext.cs" />
+    <Compile Include="Context\IFunctionManager.cs" />
     <Compile Include="Context\IInputManager.cs" />
     <Compile Include="Lexer\ILexer.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\CustomFunction.cs" />
+    <Compile Include="Parser\NonTerminalExpressions\Functions\File\FileGetName.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="FileHelpers.cs" />
     <Compile Include="Lexer\Lexer.cs" />

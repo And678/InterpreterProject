@@ -27,10 +27,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 				}
 				throw new SyntaxException($"{resultPath} does not exist");
 			}
-			else
-			{
-				throw new SyntaxException($"GetFileSize is not defined for {result.Type}");
-			}
+			throw new SyntaxException($"GetFileSize is not defined for {result.Type}");
 		}
 	}
 }

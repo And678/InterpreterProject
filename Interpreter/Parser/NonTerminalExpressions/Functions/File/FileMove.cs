@@ -23,8 +23,14 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			var to = _to.Interpret(context);
 			if (from.Type == ValueTypes.Path && to.Type == ValueTypes.Path)
 			{
-				File.Move(TypeHelpers.Convert<string>(from), 
-							TypeHelpers.Convert<string>(to));
+				string file = TypeHelpers.Convert<string>(from);
+				if (File.Exists(file))
+				{
+					File.Move(file, TypeHelpers.Convert<string>(to));
+					return null;
+				}
+				throw new SyntaxException($"{file} does not exist.");
+				
 			}
 			throw new SyntaxException($"FileMove is not defined for {from.Type}, {to.Type}.");
 		}

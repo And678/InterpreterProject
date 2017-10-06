@@ -1,0 +1,2 @@
+FileCreate('newFile.txt');
+echo("newFile.txt was created.");

@@ -20,7 +20,8 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			var result = _expression.Interpret(context);
 			if (result.Type == ValueTypes.Path)
 			{
-				Directory.CreateDirectory(TypeHelpers.Convert<string>(result));
+				var path = Directory.CreateDirectory(TypeHelpers.Convert<string>(result));
+				return new Value(ValueTypes.Path, path.FullName);
 			}
 			throw new SyntaxException($"FileMkDir is not defined for {result.Type}");
 		}

@@ -21,6 +21,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			if (result.Type == ValueTypes.Path)
 			{
 				File.Create(TypeHelpers.Convert<string>(result));
+				return null;
 			}
 			throw new SyntaxException($"FileCreate is not defined for {result.Type}");
 		}

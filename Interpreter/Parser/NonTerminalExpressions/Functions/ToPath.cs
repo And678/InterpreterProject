@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Interpreter.Context;
+using Interpreter.Lexer;
+using Interpreter.Parser.TerminalExpressions;
 
 namespace Interpreter.Parser.NonTerminalExpressions.Functions
 {
@@ -19,7 +21,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			var result = _expression.Interpret(context);
 			if (result.Type == ValueTypes.String)
 			{
-				return new Value(ValueTypes.Path, TypeHelpers.Convert<string>(result));
+				// New Literal in order check path
+				return new Literal(TokenType.PathLiteral, TypeHelpers.Convert<string>(result)).Interpret(context);
+			//	return new Value(ValueTypes.Path, );
 			}
 			throw new SyntaxException($"ToPath is not defined for {result.Type}");
 		}

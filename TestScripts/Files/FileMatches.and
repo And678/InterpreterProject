@@ -1,0 +1,14 @@
+gets();
+
+string mask;
+mask = "*.txt";
+echo("Match files in directory to mask:" + mask);
+array files;
+files = FileGetList(thisdir);
+int len;
+len = ArrayLength(files) - 1;
+while (len > -1)
+{
+	echo(toStr(files[len]) + " - " + toStr(filematchesmask(files[len], mask)));
+	len = len - 1;
+}

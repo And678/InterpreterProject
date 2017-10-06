@@ -23,7 +23,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 				string path = TypeHelpers.Convert<string>(expression);
 				if (Directory.Exists(path))
 				{
-					return new Value(ValueTypes.Array, Directory.GetFiles(path).ToList());
+					return new Value(ValueTypes.Array, Directory.GetFiles(path).Select(s => new Value(ValueTypes.Path, s)).ToList());
 				}
 			}
 			throw new SyntaxException($"FileGetListInDir is not defined for {expression.Type}.");

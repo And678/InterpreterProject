@@ -1,0 +1,3 @@
+path dir;
+dir = FileMkDir(toPath(toStr(thisdir) + "\newDir"));
+echo(toStr(dir) + " was created.");

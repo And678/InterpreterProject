@@ -1,4 +1,4 @@
 path tested;
-tested = 'globals.and';
+tested = 'FileCreate.and';
 echo(toStr(tested) + " has " + toStr(FileGetSize(tested)) + " bytes.");
 echo("This file has " + toStr(FileGetSize(thisfile)) + " bytes.");
