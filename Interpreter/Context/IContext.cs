@@ -1,4 +1,7 @@
-﻿namespace Interpreter.Context
+﻿using System.Collections.Generic;
+using Interpreter.Parser;
+
+namespace Interpreter.Context
 {
 	public interface IContext
 	{

@@ -11,6 +11,8 @@ namespace Interpreter.Lexer
 		EOF,
 		Terminator,
 
+		FunctionDefinition,
+
 		Identifier,
 		IntIdentifier,
 		BoolIdentifier,

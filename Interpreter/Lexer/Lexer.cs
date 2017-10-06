@@ -97,7 +97,10 @@ namespace Interpreter.Lexer
 			
 			string literalString = newLiteral.ToString().ToLower();
 
-
+			if (literalString == LexerDefinitions.FunctionDefinition)
+			{
+				return new Token(TokenType.FunctionDefinition);
+			}
 			if (literalString == LexerDefinitions.While)
 			{
 				return new Token(TokenType.While);

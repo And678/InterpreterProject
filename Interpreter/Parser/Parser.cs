@@ -21,13 +21,16 @@ namespace Interpreter.Parser
 	public class Parser
 	{
 		private Lexer.ILexer _lexer;
+		private IFunctionManager _functionManager;
 
 		private Token _currentToken;
 		private Token _nextToken;
+		
 
-		public Parser(Lexer.ILexer lexer)
+		public Parser(Lexer.ILexer lexer, IFunctionManager funcManager)
 		{
 			_lexer = lexer;
+			_functionManager = funcManager;
 			Next();
 		}
 
@@ -102,6 +105,11 @@ namespace Interpreter.Parser
 			{
 				return BuildScope();
 			}
+			if (_currentToken.Type == TokenType.FunctionDefinition)
+			{
+				BuildProcedure();
+				return BuildStatement();
+			}
 			
 			throw new SyntaxException($"{_currentToken.Type} is not a statement.");
 		}
@@ -135,6 +143,20 @@ namespace Interpreter.Parser
 			Take(TokenType.Terminator);
 
 			return new Assignment(variable.Value, expression);
+		}
+
+		private void BuildProcedure()
+		{
+			Token variable = Take(TokenType.FunctionDefinition);
+			Token name = Take(TokenType.Identifier);
+			Take(TokenType.LeftSquigglyBracket);
+			List<IStatement> statements = new List<IStatement>();
+			while (_currentToken.Type != TokenType.RightSquigglyBracket)
+			{
+				statements.Add(BuildStatement());
+			}
+			_functionManager.AddNewFunction(name.Value, statements);
+			Take(TokenType.RightSquigglyBracket);
 		}
 		private IStatement BuildInvocation()
 		{
@@ -340,7 +362,7 @@ namespace Interpreter.Parser
 			Take(TokenType.RightBracket);
 
 			var result = LookUpStandartFunction(identifier.Value, exprList) ??
-			             new CustomFunction(identifier.Value, exprList);
+						_functionManager.LookUpCustomFunction(identifier.Value, exprList);
 			return result;
 		}
 
@@ -377,6 +399,8 @@ namespace Interpreter.Parser
 					return new FileMkDir(exprList);
 				case "filemove":
 					return new FileMove(exprList);
+				case "filegetname":
+					return new FileGetName(exprList);
 				//Casts
 				case "toint":
 					return new ToInt(exprList);

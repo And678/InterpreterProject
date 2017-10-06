@@ -5,6 +5,7 @@ namespace Interpreter.Context
 {
 	public interface IFunctionManager
 	{
-		IExpression CreateFunction(string funcName, IList<IExpression> exprList);
+		IExpression LookUpCustomFunction(string funcName, IList<IExpression> exprList);
+		void AddNewFunction(string funcName, IList<IStatement> stmtList);
 	}
 }

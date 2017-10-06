@@ -27,6 +27,7 @@ namespace Interpreter.Lexer
 
 		public static readonly string While = "while";
 		public static readonly string If = "if";
+		public static readonly string FunctionDefinition = "func";
 
 		public static readonly string OperatorSymbols = "(){}+-*/%^&|[]<>,!=";
 		//Operators: (MAXIMUM LENGTH FOR OPERATORS IS 2)

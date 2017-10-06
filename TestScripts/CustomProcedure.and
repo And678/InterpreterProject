@@ -1,0 +1,8 @@
+func superEcho
+{
+	echo("HAI");
+	echo("HEi");
+	echo("HOO");
+}
+
+superEcho();

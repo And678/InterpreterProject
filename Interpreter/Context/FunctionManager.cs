@@ -7,16 +7,22 @@ namespace Interpreter.Context
 {
 	public class FunctionManager : IFunctionManager
 	{
-		public IExpression CreateFunction(string funcName, IList<IExpression> exprList)
+		private Dictionary<string, CustomProcedure> _expr;
+
+		public FunctionManager()
 		{
-			return LookUpCustomFunction(funcName, exprList);
+			_expr = new Dictionary<string, CustomProcedure>();
+		}
+		public IExpression LookUpCustomFunction(string funcName, IList<IExpression> exprList)
+		{
+			return _expr[funcName];
 		}
 
-		private IExpression LookUpCustomFunction(string funcName, IList<IExpression> exprList)
+		public void AddNewFunction(string funcName, IList<IStatement> stmtList)
 		{
-			return null;
+			_expr.Add(funcName, new CustomProcedure(stmtList));
 		}
 
-		
+
 	}
 }
