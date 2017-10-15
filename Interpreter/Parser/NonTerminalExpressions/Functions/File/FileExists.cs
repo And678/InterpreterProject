@@ -21,7 +21,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			if (result.Type == ValueTypes.Path)
 			{
 				string path = TypeHelpers.Convert<string>(result);
-				return new Value(ValueTypes.Bool, File.Exists(path));
+				return new Value(ValueTypes.Bool, context.FileManager.FileExists(path));
 			}
 			throw new SyntaxException($"FileDelete is not defined for {result.Type}");
 		}

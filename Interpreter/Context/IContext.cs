@@ -5,6 +5,7 @@ namespace Interpreter.Context
 {
 	public interface IContext
 	{
+		IFileManager FileManager { get; }
 		string GetCurrentFile();
 		string GetCurrentPath();
 		Value LookUpVariable(string name);

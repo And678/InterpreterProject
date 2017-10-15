@@ -20,7 +20,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			var result = _expression.Interpret(context);
 			if (result.Type == ValueTypes.Path)
 			{
-				File.Create(TypeHelpers.Convert<string>(result));
+				context.FileManager.CreateFile(TypeHelpers.Convert<string>(result));
 				return null;
 			}
 			throw new SyntaxException($"FileCreate is not defined for {result.Type}");

@@ -56,6 +56,7 @@
     <Compile Include="Context\Context.cs" />
     <Compile Include="Context\FunctionManager.cs" />
     <Compile Include="Context\IContext.cs" />
+    <Compile Include="Context\IFileManager.cs" />
     <Compile Include="Context\IFunctionManager.cs" />
     <Compile Include="Context\IInputManager.cs" />
     <Compile Include="Lexer\ILexer.cs" />

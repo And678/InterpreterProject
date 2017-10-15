@@ -21,7 +21,7 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			if (result.Type == ValueTypes.Path)
 			{
 				string path = TypeHelpers.Convert<string>(result);
-				return new Value(ValueTypes.String, Path.GetFileName(path));
+				return new Value(ValueTypes.String, context.FileManager.GetFileName(path));
 			}
 			throw new SyntaxException($"FileGetName is not defined for {result.Type}");
 		}

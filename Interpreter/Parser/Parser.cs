@@ -302,7 +302,7 @@ namespace Interpreter.Parser
 			{
 				return ParseLiteral();
 			}
-			throw new SyntaxException("Unknown expression");
+			throw new SyntaxException($"Unknown expression of type {_currentToken.Type}");
 		}
 
 		private IExpression CreateNewBinaryExpression(TokenType type, IExpression left, IExpression right)

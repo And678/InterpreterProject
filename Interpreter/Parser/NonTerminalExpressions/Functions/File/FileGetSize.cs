@@ -21,9 +21,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			if (result.Type == ValueTypes.Path)
 			{
 				string resultPath = TypeHelpers.Convert<string>(result);
-				if (File.Exists(resultPath))
+				if (context.FileManager.FileExists(resultPath))
 				{
-					return new Value(ValueTypes.Int , (int)new FileInfo(resultPath).Length);
+					return new Value(ValueTypes.Int , context.FileManager.GetFileSize(resultPath));
 				}
 				throw new SyntaxException($"{resultPath} does not exist");
 			}

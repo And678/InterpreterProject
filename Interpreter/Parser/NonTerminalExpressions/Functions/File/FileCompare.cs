@@ -25,30 +25,13 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			{
 				var firstStr = TypeHelpers.Convert<string>(first);
 				var secondStr = TypeHelpers.Convert<string>(second);
-				if (File.Exists(firstStr) && File.Exists(secondStr))
+				if (context.FileManager.FileExists(firstStr) && context.FileManager.FileExists(secondStr))
 				{
-					return new Value(ValueTypes.Bool, FileEquals(firstStr, secondStr));
+					return new Value(ValueTypes.Bool, context.FileManager.CompareFiles(firstStr, secondStr));
 				}
 				throw new SyntaxException($"File does not exist.");
 			}
 			throw new SyntaxException($"FileMove is not defined for {first.Type}, {second.Type}.");
-		}
-		private bool FileEquals(string path1, string path2)
-		{
-			byte[] file1 = File.ReadAllBytes(path1);
-			byte[] file2 = File.ReadAllBytes(path2);
-			if (file1.Length == file2.Length)
-			{
-				for (int i = 0; i < file1.Length; i++)
-				{
-					if (file1[i] != file2[i])
-					{
-						return false;
-					}
-				}
-				return true;
-			}
-			return false;
 		}
 	}
 }

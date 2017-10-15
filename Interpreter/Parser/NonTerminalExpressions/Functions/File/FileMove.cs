@@ -24,9 +24,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			if (from.Type == ValueTypes.Path && to.Type == ValueTypes.Path)
 			{
 				string file = TypeHelpers.Convert<string>(from);
-				if (File.Exists(file))
+				if (context.FileManager.FileExists(file))
 				{
-					File.Move(file, TypeHelpers.Convert<string>(to));
+					context.FileManager.MoveFile(file, TypeHelpers.Convert<string>(to));
 					return null;
 				}
 				throw new SyntaxException($"{file} does not exist.");

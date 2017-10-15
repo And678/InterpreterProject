@@ -21,9 +21,9 @@ namespace Interpreter.Parser.NonTerminalExpressions.Functions
 			if (result.Type == ValueTypes.Path)
 			{
 				string path = TypeHelpers.Convert<string>(result);
-				if (File.Exists(path))
+				if (context.FileManager.FileExists(path))
 				{
-					File.Delete(path);
+					context.FileManager.DeleteFile(path);
 					return null;
 				}
 				throw new SyntaxException($"File {path} does not exists.");

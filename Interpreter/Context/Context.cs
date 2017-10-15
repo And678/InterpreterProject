@@ -14,19 +14,14 @@ namespace Interpreter.Context
 
 		private IInputManager _inputManager;
 		private IFunctionManager _functionManager;
+		public IFileManager FileManager {get;}
 
-		public Context(IFunctionManager functionManager, IInputManager myInputManager, string myPath)
+		public Context(IFunctionManager functionManager, IInputManager myInputManager, IFileManager myFileManager, string myPath)
 		{
 			_variables = new Dictionary<string, Value>();
+			FileManager = myFileManager;
 			_inputManager = myInputManager;
 			_functionManager = functionManager;
-			AddVariable(ValueTypes.Path, "thisfile", myPath);
-			AddVariable(ValueTypes.Path, "thisdir", Path.GetDirectoryName(myPath));
-		}
-		public Context(IInputManager myInputManager, string myPath)
-		{
-			_variables = new Dictionary<string, Value>();
-			_inputManager = myInputManager;
 			AddVariable(ValueTypes.Path, "thisfile", myPath);
 			AddVariable(ValueTypes.Path, "thisdir", Path.GetDirectoryName(myPath));
 		}
