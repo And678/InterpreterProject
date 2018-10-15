@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Interpreter.Lexer;
 using Interpreter.Parser.Statements;
 using Moq;
+using Interpreter.Context;
 
 namespace Interpreter.Parser.Tests
 {
@@ -24,7 +25,7 @@ namespace Interpreter.Parser.Tests
 				.Returns(new Token(TokenType.Terminator))
 				.Returns(new Token(TokenType.EOF));
 
-			Parser parser = new Parser(mock.Object);
+			Parser parser = new Parser(mock.Object, new Mock<IFunctionManager>().Object);
 
 			Assert.That(parser.BuildStatement(), Is.InstanceOf<Declaration>());
 		}
@@ -39,7 +40,7 @@ namespace Interpreter.Parser.Tests
 				.Returns(new Token(TokenType.Assign))
 				.Returns(new Token(TokenType.Terminator));
 
-			Parser parser = new Parser(mock.Object);
+			Parser parser = new Parser(mock.Object, new Mock<IFunctionManager>().Object);
 
 			Assert.That(() => parser.BuildStatement(), Throws.InstanceOf<SyntaxException>());
 		}
@@ -53,7 +54,7 @@ namespace Interpreter.Parser.Tests
 				.Returns(new Token(TokenType.Identifier, "hi"))
 				.Returns(new Token(TokenType.EOF));
 
-			Parser parser = new Parser(mock.Object);
+			Parser parser = new Parser(mock.Object, new Mock<IFunctionManager>().Object);
 
 			Assert.That(() => parser.BuildStatement(), Throws.InstanceOf<SyntaxException>());
 		}
